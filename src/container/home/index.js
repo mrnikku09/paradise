@@ -10,16 +10,15 @@ const Home = () => {
 
     useEffect(() => {
         if (didMountRef.current) {
-            ApiService.fetchData('settingsdata').then((res)=>{
-                if(res.status=="success")
-                {
+            ApiService.fetchData('settingsdata').then((res) => {
+                if (res.status == "success") {
                     console.log(res.settingData);
                     setsettingData(res?.settingData);
                     setsetting_image_path(res?.setting_image_path);
                 }
             })
         }
-        didMountRef.current=false;
+        didMountRef.current = false;
     }, [])
 
     return (
@@ -31,20 +30,17 @@ const Home = () => {
                     <div class="logo">
                         {/* <h1 class="text-light"><a href="index.html"><span>Paradise</span></a></h1> */}
                         {/* <!-- Uncomment below if you prefer to use an image logo --> */}
-                        <a href="index.html"><img src={settingData != null ? setting_image_path + settingData.logo :constant.DEFAULT_IMAGE} alt="" class="img-fluid"/></a>
+                        <a href="/"><img src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" class="img-fluid" /></a>
                     </div>
 
                     <nav id="navbar" class="navbar">
                         <ul>
-                    
-                            <li><a class="nav-link scrollto active" href="#hero">Home </a></li>
+
+                            <li><a class="nav-link scrollto active" href="/">Home <i class="fa-solid fa-house"></i></a></li>
                             <li><a class="nav-link scrollto" href="#about">About Us</a></li>
                             <li><a class="nav-link scrollto" href="#services">Services</a></li>
                             <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
                             <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-                                
-                            </li>
                             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                             <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
                         </ul>
@@ -634,7 +630,7 @@ const Home = () => {
                         <div class="row">
 
                             <div class="col-lg-3 col-md-6 footer-contact">
-                                <img className='mb-3' src={settingData != null ? setting_image_path + settingData.logo :constant.DEFAULT_IMAGE} alt="" />
+                                <img className='mb-3' src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" />
                                 <p>
                                     A108 Adam Street <br />
                                     New York, NY 535022<br />
