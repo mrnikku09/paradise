@@ -1186,7 +1186,6 @@ section {
 --------------------------------------------------------------*/
 #footer {
   background: #fff;
-  padding: 0 0 30px 0;
   color: #212529;
   font-size: 14px;
   background: #fef8f5;
@@ -1342,7 +1341,7 @@ section {
 
 #footer .copyright {
   text-align: center;
-  float: left;
+  
 }
 
 #footer .credits {

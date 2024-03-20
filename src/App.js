@@ -11,6 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' activeClassName="active" element={<Home />} />
+          <Route path='*' activeClassName="active" element={<Home />} />
         </Routes>
       </Router>
     </div>
