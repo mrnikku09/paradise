@@ -1,4 +1,4 @@
-const API_URL = 'https://nikblink.site/2024/paradise/api/'
+const API_URL = 'https://paradise.nikkblink.site/csadmin/api/'
 
 const DEFAULT_IMAGE = "assets/defaultimage.png";
 

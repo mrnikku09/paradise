@@ -15,17 +15,18 @@ const Footer = () => {
 
     useEffect(() => {
         if (didMountRef.current) {
-            ApiService.fetchData('settingsdata').then((res) => {
+            ApiService.fetchData('settingsData').then((res) => {
                 if (res.status == "success") {
-                    console.log(res.settingData);
-                    setsettingData(res?.settingData);
+                    console.log(res.settings);
+                    setsettingData(res?.settings);
                     setsetting_image_path(res?.setting_image_path);
                 }
             })
-            ApiService.fetchData('footerData').then((res) => {
+            ApiService.fetchData('footer').then((res) => {
                 if (res.status == "success") {
                     setfooter_desc1(res?.footerData?.footer_desc1);
                     setfooter_desc2(res?.footerData?.footer_desc2);
+                    console.log(res?.footerData?.footer_desc2);
                     setfooter_desc3(res?.footerData?.footer_desc3);
                     setfooter_desc4(res?.footerData?.footer_desc4);
                 }
@@ -62,18 +63,17 @@ const Footer = () => {
                                     A108 Adam Street <br />
                                     New York, NY 535022<br />
                                     United States <br /><br />
-                                    <strong>Phone:</strong>&nbsp;<a href={"tel:" + settingData.admin_mobile}>9999999999</a> <br />
-                                    <strong>Email:</strong>&nbsp;<a href={"mailto:" + settingData.site_address}>info@paradise.com</a><br />
+                                    <strong>Phone:</strong>&nbsp;<a href={"tel:" + settingData?.admin_mobile}>9999999999</a> <br />
+                                    <strong>Email:</strong>&nbsp;<a href={"mailto:" + settingData?.site_address}>info@paradise.com</a><br />
                                 </p>
                             </div>
 
                             <div className="col-lg-3 col-md-6 footer-links" dangerouslySetInnerHTML={{ __html: footer_desc2 }}>
-
-
+                            
                             </div>
 
                             <div className="col-lg-3 col-md-6 footer-links" dangerouslySetInnerHTML={{ __html: footer_desc3 }}>
-
+                            
                             </div>
 
                             <div className="col-lg-3 col-md-6 footer-links">

@@ -1365,3 +1365,12 @@ section {
     padding: 3px 0;
   }
 }
+.mt-70{
+margin-top: 70px;
+}
+/* .error-page{
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */

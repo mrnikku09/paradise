@@ -11,14 +11,14 @@ const Header = () => {
 
     useEffect(() => {
         if (didMountRef.current) {
-            ApiService.fetchData('settingsdata').then((res) => {
+            ApiService.fetchData('settingsData').then((res) => {
                 if (res.status == "success") {
-                    console.log(res.settingData);
-                    setsettingData(res?.settingData);
+                    console.log(res.settings);
+                    setsettingData(res?.settings);
                     setsetting_image_path(res?.setting_image_path);
                 }
             })
-            ApiService.fetchData('menuData').then((res) => {
+            ApiService.fetchData('menu').then((res) => {
                 if (res.status == "success") {
                     console.log(res);
                     setmenudata(res?.menuData);
@@ -44,7 +44,7 @@ const Header = () => {
                             {menudata.length>0 ?
                                 menudata.map((value, index) => {
                                     return (
-                                        <li key={index}><a className="nav-link" href={value?.menu_customlink}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
+                                        <li key={index}><a className="nav-link" href={value?.menu_slug ?value?.menu_slug : "/" }>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
                                     )
                                 })
                                 :''
@@ -59,6 +59,7 @@ const Header = () => {
 
                 </div>
             </header>
+            
             {/* <!-- End Header --> */}
         </>
     )

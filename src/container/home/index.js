@@ -16,6 +16,7 @@ const Home = () => {
     return (
         <>
             <Header />
+            <main id="main">
             <Homeslider />
             <Servicesection/>
             <Product/>
@@ -23,6 +24,7 @@ const Home = () => {
             <Team/>
             {/* <Testimonials/> */}
             <Contactus/>
+            </main>
             <Footer/>        
 
 
