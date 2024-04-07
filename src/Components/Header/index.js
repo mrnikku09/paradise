@@ -51,7 +51,7 @@ const Header = () => {
                             }
 
                             
-                            <li><a className="getstarted scrollto" href="javascript:void(0)">Get Started</a></li> 
+                            <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li> 
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle"></i>
                     </nav>
