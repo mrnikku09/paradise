@@ -17,7 +17,6 @@ const Footer = () => {
         if (didMountRef.current) {
             ApiService.fetchData('settingsData').then((res) => {
                 if (res.status == "success") {
-                    console.log(res.settings);
                     setsettingData(res?.settings);
                     setsetting_image_path(res?.setting_image_path);
                 }
@@ -26,7 +25,6 @@ const Footer = () => {
                 if (res.status == "success") {
                     setfooter_desc1(res?.footerData?.footer_desc1);
                     setfooter_desc2(res?.footerData?.footer_desc2);
-                    console.log(res?.footerData?.footer_desc2);
                     setfooter_desc3(res?.footerData?.footer_desc3);
                     setfooter_desc4(res?.footerData?.footer_desc4);
                 }
