@@ -1504,3 +1504,96 @@ margin-top: 70px;
   border-color: #ab7229 !important;
   border-color: var(--color-primary) !important;
 }
+/* menu modal */
+.modal.left .modal-dialog {
+  position: fixed;
+  margin: auto;
+  top: 0;
+  width: 70%;
+  height: 100vh;
+  left: -50%;
+  transition: left 0.4s ease-in-out;
+}
+.modal.left.show .modal-dialog { 
+  left: 0;
+}
+.modal.left.show .modal-dialog .modal-content{
+height: 100%;
+}
+
+.modal.left .modal-dialog .modal-header{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.modal.left .modal-dialog .modal-body{
+text-align: center;
+}
+.modal.left .modal-dialog ul li{
+  list-style: none;
+  line-height: 50px;
+  text-decoration: none;
+}
+.modal.left .modal-dialog ul{
+  padding-left: 0px !important;
+}
+.modal.left .modal-dialog .modal-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal.left .modal-dialog img{
+  width: 150px;
+}
+
+/* product */
+.portfolio-container .portfolio-item .portfolio-wrap .portfolio-info .quick-view{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eb5d1e;
+    color: white;
+}
+.product_modal .product_modal_dialog{
+  height: 70%;
+  max-width: 70vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product_modal .product_modal_dialog .product_modal_content{
+  height: 100%;
+  width: 100%;
+}
+.product_modal .product_modal_dialog .product_modal_content .product_modal_body .product_modal_gallery img{
+  width: 100%;
+}
+@media (max-width: 1024px) {
+  .product_modal .product_modal_dialog{
+    height: 100%;
+    max-width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .product_modal .product_modal_dialog .product_modal_content{
+    height: 100%;
+    width: 100%;
+  }
+  
+}
+@media (max-width: 720px) {
+  .product_modal .product_modal_dialog{
+    height: 100%;
+    max-width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .product_modal .product_modal_dialog .product_modal_content{
+    height: 100%;
+    width: 100%;
+  }
+  
+}

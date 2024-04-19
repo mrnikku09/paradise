@@ -41,25 +41,54 @@ const Header = () => {
 
                     <nav id="navbar" className="navbar">
                         <ul>
-                            {menudata.length>0 ?
+                            {menudata.length > 0 ?
                                 menudata.map((value, index) => {
                                     return (
-                                        <li key={index}><a className="nav-link" href={value?.menu_slug ?value?.menu_slug : "/" }>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
+                                        <li key={index}><a className="nav-link scrollto" href={value?.menu_slug ? value?.menu_slug : "/"}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
                                     )
                                 })
-                                :''
+                                : ''
                             }
 
-                            
-                            <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li> 
+
+                            <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li>
                         </ul>
-                        <i className="bi bi-list mobile-nav-toggle"></i>
+                        <i className="bi bi-list mobile-nav-toggle" data-bs-toggle="modal" data-bs-target="#leftModal"></i>
                     </nav>
                     {/* <!-- .navbar --> */}
 
                 </div>
             </header>
-            
+            {/* <!-- Left-aligned modal --> */}
+            <div class="modal left fade" id="leftModal" tabindex="-1" role="dialog" aria-labelledby="leftModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div className="modal-header">
+                            <a href="/"><img src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" className="img-fluid" /></a>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                {menudata.length > 0 ?
+                                    menudata.map((value, index) => {
+                                        return (
+                                            <li key={index}><a className="nav-link scrollto" href={value?.menu_slug ? value?.menu_slug : "/"}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
+                                        )
+                                    })
+                                    : ''
+                                }
+
+
+                            </ul>
+                        </div>
+                        <a className="modal-footer" href="https://paradise.nikkblink.site/csadmin/">
+                        Admin Panel
+
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
             {/* <!-- End Header --> */}
         </>
     )
