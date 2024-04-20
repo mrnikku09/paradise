@@ -1,37 +1,121 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { ApiService } from '../Services/apiservices';
+import Toasts from '../Extension/Toast/Toasts';
+import { ToastContainer } from 'react-toastify';
 
 const Contactus = () => {
+    const [settingData, setsettingData] = useState('');
+    const [settingImageUrl, setsettingImageUrl] = useState({});
+
+    const [contactDetails, setContactDetails] = useState({
+        contact_name: '',
+        contact_email: '',
+        contact_subject: '',
+        contact_message: '',
+        contact_mobile: '',
+    })
+    const [successmsg, setsuccessmsg] = useState('');
+    const [errormsg, seterrormsg] = useState('');
+    const didMountRef = useRef(true);
+
+    useEffect(() => {
+        if (didMountRef.current) {
+            
+            ApiService.fetchData('settingsData').then((res) => {
+                if (res.status == "success") {
+                    setsettingData(res?.settings);
+                    setsettingImageUrl(res?.setting_image_path);
+                }
+            })
+        }
+        didMountRef.current = false
+    }, [])
+
+    const onTodoChange = (e) => {
+        const { name, value } = e.target;
+        setContactDetails((prestate) => ({
+            ...prestate,
+            [name]: value,
+        }))
+    }
+
+    const contactProcess = () => {
+        let counter = 0;
+        let myElements = document.getElementsByClassName('required');
+
+        for (let i = 0; i < myElements.length; i++) {
+            if (myElements[i].value == '') {
+                myElements[i].style.border = "1px solid red";
+                counter++;
+            }
+            else {
+                myElements[i].style.border = "";
+            }
+        }
+        
+
+        const validateEmail = (email) => {
+            const re = /\S+@\S+\.\S+/;
+            return re.test(email);
+          };
+
+          if (!validateEmail(contactDetails.contact_email)) {
+            Toasts.error('Email is Invalid')
+            return false
+          } 
+          
+        const dataString = {
+            'contact_name': contactDetails.contact_name,
+            'contact_email': contactDetails.contact_email,
+            'contact_subject': contactDetails.contact_subject,
+            'contact_message': contactDetails.contact_message,
+            'contact_mobile': contactDetails.contact_mobile
+        }
+        ApiService.postData('contact-process', dataString).then((res) => {
+            if (res.status === 'success') {
+                Toasts.success(res.message);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 4000);
+            } else {
+                Toasts.error(res.message);
+                
+            }
+        })
+    }
     return (
         <>
             {/* <!-- ======= Contact Us Section ======= --> */}
-            <section id="contact" class="contact">
-                <div class="container" data-aos="fade-up">
+            <section id="contact" className="contact">
+                <div className="container" data-aos="fade-up">
 
-                    <div class="section-title">
+                    <div className="section-title">
                         <h2>Contact Us</h2>
                         <p>Contact us the get started</p>
                     </div>
+                    <div className="row">
+                                    <ToastContainer />
+                                </div>
+                    <div className="row">
 
-                    <div class="row">
-
-                        <div class="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-                            <div class="info">
-                                <div class="address">
-                                    <i class="bi bi-geo-alt"></i>
+                        <div className="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                            <div className="info">
+                                <div className="address">
+                                    <i className="bi bi-geo-alt"></i>
                                     <h4>Location:</h4>
-                                    <p>A108 Adam Street, New York, NY 535022</p>
+                                    <p>Jaipur Rajasthan</p>
                                 </div>
 
-                                <div class="email">
-                                    <i class="bi bi-envelope"></i>
+                                <div className="email">
+                                    <i className="bi bi-envelope"></i>
                                     <h4>Email:</h4>
-                                    <p>info@example.com</p>
+                                    <p>{settingData.admin_support_email}</p>
                                 </div>
 
-                                <div class="phone">
-                                    <i class="bi bi-phone"></i>
+                                <div className="phone">
+                                    <i className="bi bi-phone"></i>
                                     <h4>Call:</h4>
-                                    <p>+1 5589 55488 55s</p>
+                                    <p>{settingData.admin_mobile}</p>
                                 </div>
 
                                 <iframe
@@ -41,32 +125,36 @@ const Contactus = () => {
 
                         </div>
 
-                        <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
+                        <div className="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                            <form action="forms/contact.php" method="post" role="form" className="php-email-form">
+                                <div className="row">
+                                    <div className="form-group col-md-6">
                                         <label for="name">Your Name</label>
-                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required />
+                                        <input type="text" name="contact_name" value={contactDetails.contact_name} onChange={(e) => onTodoChange(e)}  className="form-control required" id="name" placeholder="Your Name" required />
                                     </div>
-                                    <div class="form-group col-md-6 mt-3 mt-md-0">
+                                    <div className="form-group col-md-6">
+                                        <label for="name">Your Moblie</label>
+                                        <input type="number" name="contact_mobile" value={contactDetails.contact_mobile} onChange={(e) => onTodoChange(e)} className="form-control required" id="name" placeholder="Your Mobile" required />
+                                    </div>
+                                    <div className="form-group col-md-12 mt-3 mt-md-0">
                                         <label for="name">Your Email</label>
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required />
+                                        <input type="email" className="form-control required" name="contact_email" id="email" value={contactDetails.contact_email} onChange={(e) => onTodoChange(e)} placeholder="Your Email" required />
                                     </div>
                                 </div>
-                                <div class="form-group mt-3">
+                                <div className="form-group mt-3">
                                     <label for="name">Subject</label>
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required />
+                                    <input type="text" className="form-control required" name="contact_subject" id="subject" placeholder="Subject" value={contactDetails.contact_subject} onChange={(e) => onTodoChange(e)}  required />
                                 </div>
-                                <div class="form-group mt-3">
+                                <div className="form-group mt-3">
                                     <label for="name">Message</label>
-                                    <textarea class="form-control" name="message" rows="10" required></textarea>
+                                    <textarea className="form-control" name="contact_message" rows="10" onChange={(e) => onTodoChange(e)} value={contactDetails.contact_message} required></textarea>
                                 </div>
-                                <div class="my-3">
-                                    <div class="loading">Loading</div>
-                                    <div class="error-message"></div>
-                                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                                <div className="my-3">
+                                    <div className="loading">Loading</div>
+                                    <div className="error-message"></div>
+                                    <div className="sent-message">Your message has been sent. Thank you!</div>
                                 </div>
-                                <div class="text-center"><button type="submit">Send Message</button></div>
+                                <div className="text-center"><button className="btn btn-primary btn-medium btn btn-primary" type="button" onClick={contactProcess}>Send Message</button></div>
                             </form>
                         </div>
 

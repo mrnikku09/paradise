@@ -56,13 +56,13 @@ const Page = () => {
             <main id="main">
                 {pageData != null ? <>
                 <div className="subheader" style={{ background: `url(${pageData?.page_header_image != null ? pageImageUrl + pageData?.page_header_image : ''})` }}>
-                    <div class="subheader-overlay"></div>
-                    <div class="subheader-content">
+                    <div className="subheader-overlay"></div>
+                    <div className="subheader-content">
                         <h1>{pageData?.page_name}</h1>
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item" aria-current="page">{pageData?.page_name}</li>
+                            <ol className="breadcrumb">
+                                <li className="breadcrumb-item"><a href="/">Home</a></li>
+                                <li className="breadcrumb-item" aria-current="page">{pageData?.page_name}</li>
                             </ol>
                         </nav>
                     </div>

@@ -108,7 +108,7 @@ h6,
 #header .logo img {
   padding: 0;
   margin: 0;
-  max-height: 55px;
+  max-height: 50px;
 }
 
 #main {
@@ -399,7 +399,7 @@ h6,
 
 @media (max-width: 991px) {
   #hero {
-    height: calc(100vh - 72px);
+    height: 400px;
   }
 
   #hero .animated {
@@ -434,6 +434,7 @@ h6,
 @media (max-width: 575px) {
   #hero .hero-img img {
     width: 80%;
+    height: 200px;
   }
 }
 
@@ -1255,7 +1256,7 @@ section {
   margin-bottom: 30px;
 }
 #footer .footer-top .footer-contact img{
-  height: 55px;
+  height: 75px;
 }
 
 #footer .footer-top .footer-contact h4 {

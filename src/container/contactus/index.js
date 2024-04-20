@@ -112,78 +112,78 @@ const Contactus = () => {
             <main id="main">
                 <Header />
                 <div className="subheader" style={{ background: `url(${pageData?.page_header_image != null ? pageImageUrl + pageData?.page_header_image : ''})` }}>
-                    <div class="subheader-overlay"></div>
-                    <div class="subheader-content">
+                    <div className="subheader-overlay"></div>
+                    <div className="subheader-content">
                         <h1>Contact Us</h1>
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item" aria-current="page">Contact Us</li>
+                            <ol className="breadcrumb">
+                                <li className="breadcrumb-item"><a href="/">Home</a></li>
+                                <li className="breadcrumb-item" aria-current="page">Contact Us</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
 
 
-                <section class="sec-pad contact_us">
-                    <div class="container">
-                        <div class="row g-3">
-                            <div class="col-lg-7">
-                                <div class=""><h2 >Get In Touch With Us</h2><p>If you have any questions or enquiries please feel free to contact us alternatively you can complete our online enquiry form located below and we will get back to you as soon as possible.</p></div>
+                <section className="sec-pad contact_us">
+                    <div className="container">
+                        <div className="row g-3">
+                            <div className="col-lg-7">
+                                <div className=""><h2 >Get In Touch With Us</h2><p>If you have any questions or enquiries please feel free to contact us alternatively you can complete our online enquiry form located below and we will get back to you as soon as possible.</p></div>
                                 <div className="row">
                                     <ToastContainer />
                                 </div>
-                                <div class="row g-3">
-                                    <div class="col-lg-6">
-                                        <div class="form-group-dark">
+                                <div className="row g-3">
+                                    <div className="col-lg-6">
+                                        <div className="form-group-dark">
                                             <label>Your Name</label>
-                                            <input type="text" name="contact_name" class="form-control required" placeholder="Name" value={contactDetails.contact_name} onChange={(e) => onTodoChange(e)} /></div></div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group-dark">
+                                            <input type="text" name="contact_name" className="form-control required" placeholder="Name" value={contactDetails.contact_name} onChange={(e) => onTodoChange(e)} /></div></div>
+                                    <div className="col-lg-6">
+                                        <div className="form-group-dark">
                                             <label>Mobile</label>
-                                            <input type="number" name="contact_mobile" class="form-control required" placeholder="Mobile" value={contactDetails.contact_mobile} onChange={(e) => onTodoChange(e)} /></div></div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group-dark">
+                                            <input type="number" name="contact_mobile" className="form-control required" placeholder="Mobile" value={contactDetails.contact_mobile} onChange={(e) => onTodoChange(e)} /></div></div>
+                                    <div className="col-lg-12">
+                                        <div className="form-group-dark">
                                             <label>Email Address</label>
-                                            <input type="email" name="contact_email" class="form-control required" placeholder="Email" value={contactDetails.contact_email} onChange={(e) => onTodoChange(e)} /></div></div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group-dark">
+                                            <input type="email" name="contact_email" className="form-control required" placeholder="Email" value={contactDetails.contact_email} onChange={(e) => onTodoChange(e)} /></div></div>
+                                    <div className="col-lg-12">
+                                        <div className="form-group-dark">
                                             <label>Subject</label>
-                                            <input type="text" name="contact_subject" class="form-control required" placeholder="Subject" value={contactDetails.contact_subject} onChange={(e) => onTodoChange(e)} /></div></div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group-dark">
-                                            <label>Message</label><textarea name="contact_message" onChange={(e) => onTodoChange(e)} value={contactDetails.contact_message} class="form-control " /></div></div>
-                                    <div class="col-lg-6"><button onClick={contactProcess} type="button" class="btn btn-primary btn-medium btn btn-primary">Submit</button>
+                                            <input type="text" name="contact_subject" className="form-control required" placeholder="Subject" value={contactDetails.contact_subject} onChange={(e) => onTodoChange(e)} /></div></div>
+                                    <div className="col-lg-12">
+                                        <div className="form-group-dark">
+                                            <label>Message</label><textarea name="contact_message" onChange={(e) => onTodoChange(e)} value={contactDetails.contact_message} className="form-control " /></div></div>
+                                    <div className="col-lg-6"><button onClick={contactProcess} type="button" className="btn btn-primary btn-medium btn btn-primary">Submit</button>
                                     </div>
                                 </div>
                             </div>
 
 
-                            <div class="col-lg-5">
-                                <div class="contact-address-section mb-3">
-                                    <div class="">
+                            <div className="col-lg-5">
+                                <div className="contact-address-section mb-3">
+                                    <div className="">
                                         <h3>Head Office</h3></div>
-                                    <div class="address-contact">
+                                    <div className="address-contact">
                                         <ul>
-                                            <li><a href="" target="new"><i class="bx bx-current-location mr-5"></i><span>Jagatpura,Jaipur</span></a></li>
-                                            <li><a href="tel:+919874563210"><i class="bx bxs-contact mr-5"></i><span>+919874563210</span></a>
+                                            <li><a href="" target="new"><i className="bx bx-current-location mr-5"></i><span>Jagatpura,Jaipur</span></a></li>
+                                            <li><a href="tel:+919874563210"><i className="bx bxs-contact mr-5"></i><span>+919874563210</span></a>
                                             </li>
-                                            <li><a href="tel:9876543210"><i class="bx bxs-contact mr-5"></i><span>9876543210</span></a>
+                                            <li><a href="tel:9876543210"><i className="bx bxs-contact mr-5"></i><span>9876543210</span></a>
                                             </li></ul></div></div>
-                                <div class="contact-address-section mb-3">
-                                    <div class=""><h3>Email</h3></div>
-                                    <div class="address-contact"><ul>
-                                        <li><a href="mailto:info@paradise.com"><i class="bx bx-voicemail mr-5"></i><span>info@paradise.com</span></a>
+                                <div className="contact-address-section mb-3">
+                                    <div className=""><h3>Email</h3></div>
+                                    <div className="address-contact"><ul>
+                                        <li><a href="mailto:info@paradise.com"><i className="bx bx-voicemail mr-5"></i><span>info@paradise.com</span></a>
                                         </li>
-                                        <li><a href="mailto:paradise@gmail.com"><i class="bx bx-voicemail mr-5"></i><span>paradise@gmail.com</span></a>
+                                        <li><a href="mailto:paradise@gmail.com"><i className="bx bx-voicemail mr-5"></i><span>paradise@gmail.com</span></a>
                                         </li>
-                                        <li><a href="mailto:paradise@yahoo.co.in"><i class=" bx bx-voicemail mr-5"></i><span>paradise@yahoo.co.in</span></a>
+                                        <li><a href="mailto:paradise@yahoo.co.in"><i className=" bx bx-voicemail mr-5"></i><span>paradise@yahoo.co.in</span></a>
                                         </li></ul></div></div></div></div></div></section>
-                {/* <section class="breadcrumbs ">
+                {/* <section className="breadcrumbs ">
                     
-                    <div class="container">
+                    <div className="container">
 
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div className="d-flex justify-content-between align-items-center">
                             <h2>{pageData?.page_name}</h2>
                             <ol>
                                 <li><a href="index.html">Home</a></li>
@@ -194,8 +194,8 @@ const Contactus = () => {
                     </div>
                 </section>
 
-                <section class="inner-page">
-                    <div class="container">
+                <section className="inner-page">
+                    <div className="container">
                         <p>
                             Example inner page template
                         </p>

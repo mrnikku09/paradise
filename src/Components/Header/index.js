@@ -13,14 +13,12 @@ const Header = () => {
         if (didMountRef.current) {
             ApiService.fetchData('settingsData').then((res) => {
                 if (res.status == "success") {
-                    console.log(res.settings);
                     setsettingData(res?.settings);
                     setsetting_image_path(res?.setting_image_path);
                 }
             })
             ApiService.fetchData('menu').then((res) => {
                 if (res.status == "success") {
-                    console.log(res);
                     setmenudata(res?.menuData);
                 }
             })
@@ -60,13 +58,13 @@ const Header = () => {
                 </div>
             </header>
             {/* <!-- Left-aligned modal --> */}
-            <div class="modal left fade" id="leftModal" tabindex="-1" role="dialog" aria-labelledby="leftModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+            <div className="modal left fade" id="leftModal" tabindex="-1" role="dialog" aria-labelledby="leftModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
                         <div className="modal-header">
                             <a href="/"><img src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" className="img-fluid" /></a>
                         </div>
-                        <div class="modal-body">
+                        <div className="modal-body">
                             <ul>
                                 {menudata.length > 0 ?
                                     menudata.map((value, index) => {

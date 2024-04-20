@@ -56,7 +56,7 @@ const Footer = () => {
                         <div className="row">
 
                             <div className="col-lg-3 col-md-6 footer-contact">
-                                <img className='mb-3' src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" />
+                                <img className='' src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" />
                                 <p>
                                     A108 Adam Street <br />
                                     New York, NY 535022<br />

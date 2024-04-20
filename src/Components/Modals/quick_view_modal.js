@@ -11,17 +11,17 @@ const QuickViewModal = ({ showmodal }) => {
     }
     return (
         <>
-            {/* <div class={`modal ${showQuick ? 'show':''} fade custom-modal product_modal`} id="productview" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"> */}
+            {/* <div className={`modal ${showQuick ? 'show':''} fade custom-modal product_modal`} id="productview" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"> */}
             <Modal show={showQuick} className="fade custom-modal product_modal">
-                <div class="modal-dialog product_modal_dialog" role="document">
-                    <div class="modal-content product_modal_content">
-                        {/* <div class="modal-header product_modal_header">
-                            <h5 class="modal-title product_modal_title" id="modalLabel">Product Name</h5>
+                <div className="modal-dialog product_modal_dialog" role="document">
+                    <div className="modal-content product_modal_content">
+                        {/* <div className="modal-header product_modal_header">
+                            <h5 className="modal-title product_modal_title" id="modalLabel">Product Name</h5>
                             <button type="button" className="close" onClick={hide}>
                                 <span>&times;</span>
                             </button>
                         </div> */}
-                        <div class="modal-body product_modal_body">
+                        <div className="modal-body product_modal_body">
                             <div className="row">
                                 <div className="col-lg-6 col-12">
                                     <div className="product_modal_gallery">

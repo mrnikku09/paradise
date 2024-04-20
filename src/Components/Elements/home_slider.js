@@ -1,85 +1,124 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { ApiService } from '../Services/apiservices';
+import constant from '../Services/constant';
 
 
 const Homeslider = () => {
+
+
+    const [sliderData, setsliderData] = useState([]);
+    const [slider_image_path, setslider_image_path] = useState('');
+
+    const didMountRef = useRef(true);
+
+    useEffect(() => {
+        if (didMountRef.current) {
+            ApiService.fetchData('slider-banner').then((res) => {
+                if (res.status == "success") {
+                    setsliderData(res?.sliderData);
+                    setslider_image_path(res?.SLIDER_IMAGE_PATH);
+                }
+            })
+
+        }
+        didMountRef.current = false;
+    }, [])
     return (
         <>
             {/* <!-- ======= Hero Section ======= --> */}
-            <section id="hero" class="d-flex align-items-center">
+            <section id="hero" className="d-flex align-items-center">
 
                 <Swiper
                     spaceBetween={50}
                     slidesPerView={1}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
                 >
-                    <SwiperSlide>
-                        <div class="container">
-                            <div class="row gy-4">
-                                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+
+                    {
+                        sliderData.length>0 ?
+                            sliderData.map((value, index) => (
+                                value.slider_position == 1 ?
+                                <>
+                                    <SwiperSlide>
+                                        <div className="container-fluid" key={index}>
+                                            <div className="row gy-4">
+
+                                                <div className="col-lg-12 order-1 order-lg-2 hero-img">
+                                                    <img src={value.slider_image != '' ? slider_image_path + value.slider_image : constant.DEFAULT_IMAGE} className="w-100 animated" alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                </>:''
+                            ))
+                            : ''
+                    }
+                    {/* <SwiperSlide>
+                        <div className="container">
+                            <div className="row gy-4">
+                                <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                                     <h1>Bettter digital experience with Paradise</h1>
                                     <h2>We are team of talented designers making websites with Bootstrap</h2>
                                     <div>
-                                        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                                        <a href="#about" className="btn-get-started scrollto">Get Started</a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 order-1 order-lg-2 hero-img">
-                                    <img src="assets/img/hero-img.svg" class="img-fluid animated" alt="" />
+                                <div className="col-lg-6 order-1 order-lg-2 hero-img">
+                                    <img src="assets/img/hero-img.svg" className="img-fluid animated" alt="" />
                                 </div>
                             </div>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <div class="container">
-                            <div class="row gy-4">
-                                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                        <div className="container">
+                            <div className="row gy-4">
+                                <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                                     <h1>Bettter digital experience with Paradise</h1>
                                     <h2>We are team of talented designers making websites with Bootstrap</h2>
                                     <div>
-                                        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                                        <a href="#about" className="btn-get-started scrollto">Get Started</a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 order-1 order-lg-2 hero-img">
-                                    <img src="assets/img/hero-img.svg" class="img-fluid animated" alt="" />
+                                <div className="col-lg-6 order-1 order-lg-2 hero-img">
+                                    <img src="assets/img/hero-img.svg" className="img-fluid animated" alt="" />
                                 </div>
                             </div>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <div class="container">
-                            <div class="row gy-4">
-                                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                        <div className="container">
+                            <div className="row gy-4">
+                                <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                                     <h1>Bettter digital experience with Paradise</h1>
                                     <h2>We are team of talented designers making websites with Bootstrap</h2>
                                     <div>
-                                        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                                        <a href="#about" className="btn-get-started scrollto">Get Started</a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 order-1 order-lg-2 hero-img">
-                                    <img src="assets/img/hero-img.svg" class="img-fluid animated" alt="" />
+                                <div className="col-lg-6 order-1 order-lg-2 hero-img">
+                                    <img src="assets/img/hero-img.svg" className="img-fluid animated" alt="" />
                                 </div>
                             </div>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <div class="container">
-                            <div class="row gy-4">
-                                <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                        <div className="container">
+                            <div className="row gy-4">
+                                <div className="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                                     <h1>Bettter digital experience with Paradise</h1>
                                     <h2>We are team of talented designers making websites with Bootstrap</h2>
                                     <div>
-                                        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                                        <a href="#about" className="btn-get-started scrollto">Get Started</a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 order-1 order-lg-2 hero-img">
-                                    <img src="assets/img/hero-img.svg" class="img-fluid animated" alt="" />
+                                <div className="col-lg-6 order-1 order-lg-2 hero-img">
+                                    <img src="assets/img/hero-img.svg" className="img-fluid animated" alt="" />
                                 </div>
                             </div>
                         </div>
 
-                    </SwiperSlide>
+                    </SwiperSlide> */}
                 </Swiper>
             </section>
             {/* <!-- End Hero --> */}
