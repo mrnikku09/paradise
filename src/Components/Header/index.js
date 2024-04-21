@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ApiService } from '../../Components/Services/apiservices';
 import constant from '../../Components/Services/constant';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [settingData, setsettingData] = useState();
@@ -8,6 +9,8 @@ const Header = () => {
 
     const [menudata, setmenudata] = useState([]);
     const didMountRef = useRef(true);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (didMountRef.current) {
@@ -25,6 +28,9 @@ const Header = () => {
         }
         didMountRef.current = false;
     }, [])
+    const gotToPage = (route) => {
+        navigate(route);
+      };
     return (
         <>
             {/* <!-- ======= Header ======= --> */}
@@ -42,7 +48,7 @@ const Header = () => {
                             {menudata.length > 0 ?
                                 menudata.map((value, index) => {
                                     return (
-                                        <li key={index}><a className="nav-link scrollto" href={value?.menu_slug ? value?.menu_slug : "/"}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
+                                        <li key={index}><a className="nav-link scrollto" href={`/${value?.menu_slug ? value?.menu_slug : "/"}`}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
                                     )
                                 })
                                 : ''
@@ -59,7 +65,7 @@ const Header = () => {
             </header>
             {/* <!-- Left-aligned modal --> */}
             <div className="modal left fade" id="leftModal" tabindex="-1" role="dialog" aria-labelledby="leftModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
+                <div className="modal-dialog navbar_model" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <a href="/"><img src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" className="img-fluid" /></a>
@@ -69,7 +75,7 @@ const Header = () => {
                                 {menudata.length > 0 ?
                                     menudata.map((value, index) => {
                                         return (
-                                            <li key={index}><a className="nav-link scrollto" href={value?.menu_slug ? value?.menu_slug : "/"}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
+                                            <li key={index}><a className="nav-link scrollto" href={`/${value?.menu_slug ? value?.menu_slug : "/"}`}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
                                         )
                                     })
                                     : ''

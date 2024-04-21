@@ -1,59 +1,89 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import QuickViewModal from '../Modals/quick_view_modal';
+import { ApiService } from '../Services/apiservices';
+import constant from '../Services/constant';
 
 const Product = () => {
     const [showQuick, setShowQuick] = useState(false);
+    const [productData, setproductData] = useState([]);
+    const [productImage, setproductImage] = useState([]);
+    const didMountRef = useRef(true);
 
-const quickview=()=>{
-    setShowQuick(true);
-}
+    useEffect(() => {
+        if (didMountRef.current) {
+            ApiService.fetchData('product').then((res) => {
+                if (res.status == "success") {
+                    setproductData(res?.productData);
+                    setproductImage(res?.PRODUCT_IMAGE_PATH);
+                }
+            })
+
+        }
+        didMountRef.current = false;
+    }, [])
+
+    const quickview = () => {
+        setShowQuick(true);
+    }
+    const handlehide = () => {
+        setShowQuick(false);
+    }
+
+
     return (
         <>
             {/* <!-- ======= Portfolio Section ======= --> */}
             <section id="portfolio" className="portfolio">
-                <div className="container" data-aos="fade-up">
-
+                <div className="container portfolio-containerr" data-aos="fade-up">
+                    <div className="row">
                     <div className="section-title">
                         <h2>Product</h2>
                         <p>Check out our beautiful Product</p>
+                    </div>                    
+
                     </div>
 
-                    {/* <div className="row" data-aos="fade-up" data-aos-delay="100">
-                        <div className="col-lg-12">
-                            <ul id="portfolio-flters">
-                                <li data-filter="*" className="filter-active">All</li>
-                                <li data-filter=".filter-app">App</li>
-                                <li data-filter=".filter-card">Card</li>
-                                <li data-filter=".filter-web">Web</li>
-                            </ul>
-                        </div>
-                    </div> */}
+                    <div className="row" data-aos="fade-up" data-aos-delay="200">
+                        {
+                            productData.length > 0 ?
+                                productData.map((value, index) => (
+                                    <>
+                                        <div className="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-app" key={index}>
+                                            <a href={`product/${value.product_slug}`}>
+                                                <div className="portfolio-wrap">
+                                                    <img src={value?.product_image != '' ?productImage +value?.product_image :constant.DEFAULT_IMAGE} className="img-fluid" alt="" />
+                                                    
+                                                    <div className="portfolio-info">
+                                                        <h4 className='px-3'>{value?.product_name}</h4>
+                                                        
+                                                        {/* <a href='javascript:void(0)' onClick={quickview} className='quick-view' >
+                                                            Quick View
+                                                        </a> */}
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </>
+                                )) :
+                                ''
+                        }
 
-                    <div className="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-                        <div className="col-lg-4 col-md-6 portfolio-item filter-app">
+                        {/* <div className="col-lg-4 col-md-6 portfolio-item filter-app">
                             <a href="/csadmin">
                                 <div className="portfolio-wrap">
                                     <img src="assets/img/portfolio/portfolio-1.jpg" className="img-fluid" alt="" />
-                                    {/* <div className="portfolio-links">
-                                    <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery"
-                                        className="portfolio-lightbox" title="App 1"><i className="bi bi-plus"></i></a>
-                                    <a href="portfolio-details.html" title="More Details"><i className="bi bi-link"></i></a>
-                                </div> */}
+                                   
                                     <div className="portfolio-info">
                                         <h4>App 1</h4>
-                                        {/* <a href='javascript:void(0)' onClick={quickview} className='quick-view' data-bs-toggle="modal" data-bs-target="#productview">
-                                            Quick View
-                                        </a> */}
                                         <a href='javascript:void(0)' onClick={quickview} className='quick-view' >
                                             Quick View
                                         </a>
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div> */}
 
-                        <div className="col-lg-4 col-md-6 portfolio-item filter-web">
+                        {/* <div className="col-lg-4 col-md-6 portfolio-item filter-web">
                             <div className="portfolio-wrap">
                                 <img src="assets/img/portfolio/portfolio-2.jpg" className="img-fluid" alt="" />
                                 <div className="portfolio-links">
@@ -171,7 +201,7 @@ const quickview=()=>{
                                     <p>Web</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
 
@@ -204,7 +234,7 @@ const quickview=()=>{
             </div> */}
 
             {
-                showQuick &&(<QuickViewModal showmodal={showQuick}/>)
+                showQuick && (<QuickViewModal showmodal={showQuick} handleClose={handlehide} />)
             }
         </>
     )
