@@ -9,6 +9,8 @@ const Product = () => {
     const [showQuick, setShowQuick] = useState(false);
     const [productData, setproductData] = useState([]);
     const [productImage, setproductImage] = useState([]);
+    const [quickModalProductData, setquickModalProductData] = useState(null);
+
     const didMountRef = useRef(true);
 
     useEffect(() => {
@@ -24,8 +26,10 @@ const Product = () => {
         didMountRef.current = false;
     }, [])
 
-    const quickview = () => {
+    const quickview = (value) => {
         setShowQuick(true);
+        setquickModalProductData(value);
+
     }
     const handlehide = () => {
         setShowQuick(false);
@@ -63,7 +67,7 @@ const Product = () => {
                                                     <div className="portfolio-info">
                                                         <h4 className='px-3'>{value?.product_name}</h4>
 
-                                                        <a href='javascript:void(0)' onClick={quickview} className='quick-view' >
+                                                        <a href='javascript:void(0)' onClick={()=>quickview(value)}  className='quick-view' >
                                                             Quick View
                                                         </a>
                                                     </div>
@@ -78,7 +82,7 @@ const Product = () => {
                 </div>
             </section>
             {
-                showQuick && (<QuickViewModal showmodal={showQuick} handleClose={handlehide} />)
+                showQuick && (<QuickViewModal showmodal={showQuick} handleClose={handlehide} quickModalProductData={quickModalProductData}/>)
             }
             <Footer />
         </>
