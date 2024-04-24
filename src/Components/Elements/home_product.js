@@ -24,7 +24,7 @@ const Product = () => {
 
             ApiService.fetchData('product').then((res) => {
                 if (res.status == "success") {
-                    setproductData(res?.productData);
+                    setproductData(res?.featuredProduct);
                     setproductImage(res?.PRODUCT_IMAGE_PATH);
                     setloading(true)
 
@@ -77,7 +77,7 @@ const Product = () => {
                                                         slidesPerView: 3,
                                                         spaceBetween: 40,
                                                     },
-                                                    1024: {
+                                                    1120: {
                                                         slidesPerView: 4,
                                                         spaceBetween: 50,
                                                     },
