@@ -1,6 +1,28 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { ApiService } from '../Services/apiservices';
 
 const Team = () => {
+
+    const [sliderData, setsliderData] = useState([]);
+    const [slider_image_path, setslider_image_path] = useState('');
+    const [loading, setloading] = useState('');
+
+    const didMountRef = useRef(true);
+
+    // useEffect(() => {
+    //     if (didMountRef.current) {
+    //         setloading(false);
+    //         ApiService.fetchData('featuredourteam').then((res) => {
+    //             if (res.status == "success") {
+    //                 setsliderData(res?.sliderData);
+    //                 setslider_image_path(res?.SLIDER_IMAGE_PATH);
+    //                 setloading(true)
+    //             }
+    //         })
+
+    //     }
+    //     didMountRef.current = false;
+    // }, [])
     return (
         <>
             {/* <!-- ======= Team Section ======= --> */}

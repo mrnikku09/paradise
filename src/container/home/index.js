@@ -20,7 +20,7 @@ const Home = () => {
             <main id="main">
             <Homeslider />
             <Product/>
-            <Servicesection/>
+            {/* <Servicesection/> */}
             <Faq/>
             <Team/>
             {/* <Testimonials/> */}

@@ -357,7 +357,7 @@ h6,
 #hero {
   width: 100%;
   height: 70vh;
-  background: #fef8f5;
+  /* background: #fef8f5; */
   border-bottom: 2px solid #fcebe3;
   margin: 72px 0 -72px 0;
 }
@@ -394,9 +394,9 @@ h6,
   background: #ef7f4d;
 }
 
-#hero .animated {
+/* #hero .animated {
   animation: up-down 2s ease-in-out infinite alternate-reverse both;
-}
+} */
 
 @media (max-width: 991px) {
   #hero {
@@ -460,13 +460,13 @@ h6,
 --------------------------------------------------------------*/
 section {
   padding: 60px 0;
-  margin-top: 75px;
+  /* margin-top: 75px; */
   overflow: hidden;
 }
 
-.section-bg {
+/* .section-bg {
   background-color: #fef8f5;
-}
+} */
 
 .section-title {
   text-align: center;
@@ -636,6 +636,10 @@ section {
 /*--------------------------------------------------------------
 # Portfolio
 --------------------------------------------------------------*/
+.portfolio {
+  margin-bottom: 30px;
+  margin-top:70px ;
+}
 .portfolio .portfolio-item {
   margin-bottom: 30px;
 }
@@ -679,7 +683,7 @@ section {
 
 .portfolio .portfolio-wrap::before {
   content: "";
-  background: rgba(122, 105, 96, 0.6);
+  /* background: rgba(122, 105, 96, 0.6); */
   position: absolute;
   left: 100%;
   right: 0;
@@ -1758,7 +1762,7 @@ text-align: center;
   right: 15px;
 }
 .product-single .product-name {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 700 !important;
   margin-bottom: 10px;
   white-space: normal;
@@ -1847,13 +1851,19 @@ hr {
 width: 85vw;
 }
 
-@media (max-width: 525) {
+@media (max-width: 525px) {
  
   .modal.show .modal-dialog{
     height: auto;
   }
   .modal-content{
-    width: 95%;
     height: 100%;
+    width: 100%;
+  }
+  .product-button button{
+    min-width: 145px;
+  }
+  .modal-body .product-button button{
+    min-width: 100px;
   }
 }

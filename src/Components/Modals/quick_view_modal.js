@@ -45,7 +45,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                 {/* <div className="modal-dialog modal-lg product_modal_dialog" role="document"> */}
                 {/* <div className="modal-content product_modal_content"> */}
                     <Modal.Header closeButton>
-                        <Modal.Title id="modalLabel">{productData?.product_name ? productData?.product_name : ''}</Modal.Title>
+                        <Modal.Title className='h6' id="modalLabel">{productData?.product_name ? productData?.product_name : ''}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {
@@ -72,7 +72,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-lg-6"><nav aria-label="breadcrumb"></nav><h1 className="product-name">{productData?.product_name ? productData?.product_name : ''}</h1>
+                                                <div className="col-lg-6"><nav aria-label="breadcrumb"></nav><h6 className="product-name">{productData?.product_name ? productData?.product_name : ''}</h6>
                                                     <div className="product-meta">SKU:
                                                         <span className="product-sku">{productData?.product_sku ? productData?.product_sku : ''}</span>
                                                     </div>

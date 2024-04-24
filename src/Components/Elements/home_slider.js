@@ -3,6 +3,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { ApiService } from '../Services/apiservices';
 import constant from '../Services/constant';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
+
+
 
 
 const Homeslider = () => {
@@ -10,15 +15,18 @@ const Homeslider = () => {
 
     const [sliderData, setsliderData] = useState([]);
     const [slider_image_path, setslider_image_path] = useState('');
+    const [loading, setloading] = useState('');
 
     const didMountRef = useRef(true);
 
     useEffect(() => {
         if (didMountRef.current) {
+            setloading(false);
             ApiService.fetchData('slider-banner').then((res) => {
                 if (res.status == "success") {
                     setsliderData(res?.sliderData);
                     setslider_image_path(res?.SLIDER_IMAGE_PATH);
+                    setloading(true)
                 }
             })
 
@@ -29,28 +37,36 @@ const Homeslider = () => {
         <>
             {/* <!-- ======= Hero Section ======= --> */}
             <section id="hero" className="d-flex align-items-center">
-
-                <Swiper
+        {
+            loading ==false ? <>
+                <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" style={{width:'100vw'}} height={500}></Skeleton>
+            </>:
+            <>
+            <Swiper
                     spaceBetween={50}
                     slidesPerView={1}
-                >
+                    modules={[Autoplay, Pagination, Navigation]}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}>
 
                     {
-                        sliderData.length>0 ?
+                        sliderData.length > 0 ?
                             sliderData.map((value, index) => (
                                 value.slider_position == 1 ?
-                                <>
-                                    <SwiperSlide>
-                                        <div className="container-fluid" key={index}>
-                                            <div className="row gy-4">
+                                    <>
+                                        <SwiperSlide>
+                                            <div className="container-fluid" key={index}>
+                                                <div className="row gy-4">
 
-                                                <div className="col-lg-12 order-1 order-lg-2 hero-img">
-                                                    <img src={value.slider_image != '' ? slider_image_path + value.slider_image : constant.DEFAULT_IMAGE} className="w-100 animated" alt="" />
+                                                    <div className="col-lg-12 order-1 order-lg-2 hero-img">
+                                                        <img src={value.slider_image != '' ? slider_image_path + value.slider_image : constant.DEFAULT_IMAGE} className="w-100 animated" alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </SwiperSlide>
-                                </>:''
+                                        </SwiperSlide>
+                                    </> : ''
                             ))
                             : ''
                     }
@@ -120,6 +136,9 @@ const Homeslider = () => {
 
                     </SwiperSlide> */}
                 </Swiper>
+            </>
+        }
+                
             </section>
             {/* <!-- End Hero --> */}
         </>

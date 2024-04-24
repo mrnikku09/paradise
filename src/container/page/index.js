@@ -35,7 +35,7 @@ const Page = () => {
 
     return (
         <>
-            
+
 
             <Helmet>
                 <title>{pageData?.page_meta_title}</title>
@@ -52,28 +52,30 @@ const Page = () => {
                 <meta property="twitter:image" content={constant.FRONT_URL + 'img/logo.png'} />
             </Helmet>
 
-                <Header />
+            <Header />
             <main id="main">
                 {pageData != null ? <>
-                <div className="subheader" style={{ background: `url(${pageData?.page_header_image != null ? pageImageUrl + pageData?.page_header_image : ''})` }}>
-                    <div className="subheader-overlay"></div>
-                    <div className="subheader-content">
-                        <h1>{pageData?.page_name}</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><a href="/">Home</a></li>
-                                <li className="breadcrumb-item" aria-current="page">{pageData?.page_name}</li>
-                            </ol>
-                        </nav>
+                    <div className="subheader" style={{ background: `url(${pageData?.page_header_image != null ? pageImageUrl +     pageData?.page_header_image : ''})` }}>
+                        <div className="subheader-overlay"></div>
+                        <div className="subheader-content">
+                            <h1>{pageData?.page_name}</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol className="breadcrumb">
+                                    <li className="breadcrumb-item"><a href="/">Home</a></li>
+                                    <li className="breadcrumb-item" aria-current="page">{pageData?.page_name}</li>
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
-                </div>
-                </> : 
-                <>
-                    <Error/>
-                </>
+
+                    <div dangerouslySetInnerHTML={{__html:pageData?.page_content}}></div>
+                </> :
+                    <>
+                        <Error />
+                    </>
                 }
-                </main>
-                <Footer />
+            </main>
+            <Footer />
         </>
     )
 }

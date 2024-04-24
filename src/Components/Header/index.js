@@ -2,10 +2,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ApiService } from '../../Components/Services/apiservices';
 import constant from '../../Components/Services/constant';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Header = () => {
     const [settingData, setsettingData] = useState();
     const [setting_image_path, setsetting_image_path] = useState();
+    const [loading, setloading] = useState('');
+
 
     const [menudata, setmenudata] = useState([]);
     const didMountRef = useRef(true);
@@ -14,6 +18,8 @@ const Header = () => {
 
     useEffect(() => {
         if (didMountRef.current) {
+            setloading(false);
+
             ApiService.fetchData('settingsData').then((res) => {
                 if (res.status == "success") {
                     setsettingData(res?.settings);
@@ -23,6 +29,8 @@ const Header = () => {
             ApiService.fetchData('menu').then((res) => {
                 if (res.status == "success") {
                     setmenudata(res?.menuData);
+                    setloading(true)
+
                 }
             })
         }
@@ -30,35 +38,53 @@ const Header = () => {
     }, [])
     const gotToPage = (route) => {
         navigate(route);
-      };
+    };
     return (
         <>
             {/* <!-- ======= Header ======= --> */}
             <header id="header" className="fixed-top d-flex align-items-center">
                 <div className="container d-flex align-items-center justify-content-between">
+                    {
+                        loading == false ? <>
+                            <div className='d-flex justify-content-between align-items-center w-100'>
+                                <div>
+                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={80} style={{ height: '33px' }}></Skeleton>
+                                </div>
+                                <div className='d-flex justify-content-between' style={{ gap: '50px' }}>
+                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
+                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
+                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
+                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
 
-                    <div className="logo">
-                        {/* <h1 className="text-light"><a href="index.html"><span>Paradise</span></a></h1> */}
-                        {/* <!-- Uncomment below if you prefer to use an image logo --> */}
-                        <a href="/"><img src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" className="img-fluid" /></a>
-                    </div>
+                                </div>
+                            </div>
+                        </> :
+                            <>
 
-                    <nav id="navbar" className="navbar">
-                        <ul>
-                            {menudata.length > 0 ?
-                                menudata.map((value, index) => {
-                                    return (
-                                        <li key={index}><a className="nav-link scrollto" href={`/${value?.menu_slug ? value?.menu_slug : "/"}`}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
-                                    )
-                                })
-                                : ''
-                            }
+                                <div className="logo">
+                                    {/* <h1 className="text-light"><a href="index.html"><span>Paradise</span></a></h1> */}
+                                    {/* <!-- Uncomment below if you prefer to use an image logo --> */}
+                                    <a href="/"><img src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" className="img-fluid" /></a>
+                                </div>
+
+                                <nav id="navbar" className="navbar">
+                                    <ul>
+                                        {menudata.length > 0 ?
+                                            menudata.map((value, index) => {
+                                                return (
+                                                    <li key={index}><a className="nav-link scrollto" href={`/${value?.menu_slug ? value?.menu_slug : "/"}`}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
+                                                )
+                                            })
+                                            : ''
+                                        }
 
 
-                            <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li>
-                        </ul>
-                        <i className="bi bi-list mobile-nav-toggle" data-bs-toggle="modal" data-bs-target="#leftModal"></i>
-                    </nav>
+                                        <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li>
+                                    </ul>
+                                    <i className="bi bi-list mobile-nav-toggle" data-bs-toggle="modal" data-bs-target="#leftModal"></i>
+                                </nav>
+                            </>
+                    }
                     {/* <!-- .navbar --> */}
 
                 </div>
@@ -85,7 +111,7 @@ const Header = () => {
                             </ul>
                         </div>
                         <a className="modal-footer" href="https://paradise.nikkblink.site/csadmin/">
-                        Admin Panel
+                            Admin Panel
 
                         </a>
 
