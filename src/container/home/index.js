@@ -4,12 +4,13 @@ import constant from '../../Components/Services/constant';
 import Homeslider from '../../Components/Elements/home_slider';
 import Header from '../../Components/Header';
 import Servicesection from '../../Components/Elements/home_service_section';
-import Product from '../../Components/Elements/home_product';
 import Faq from '../../Components/Elements/home_faq';
 import Team from '../../Components/Elements/home_team';
 import Testimonials from '../../Components/Elements/home_testimonials';
 import Contactus from '../../Components/Elements/home_contactus';
 import Footer from '../../Components/Footer';
+import Featuredproduct from '../../Components/Elements/home_featured_product';
+import Newsletter from '../../Components/Elements/home_newsletter';
 
 const Home = () => {
 
@@ -19,14 +20,15 @@ const Home = () => {
             <Header />
             <main id="main">
             <Homeslider />
-            <Product/>
+            <Featuredproduct/>
             {/* <Servicesection/> */}
             <Faq/>
             <Team/>
             {/* <Testimonials/> */}
-            <Contactus/>
+            {/* <Contactus/> */}
             
             </main>
+            <Newsletter/>
             <Footer/>        
 
 

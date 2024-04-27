@@ -5,14 +5,14 @@ const Testimonials = () => {
         <>
             {/* <!-- ======= Clients Section ======= --> */}
             <section id="clients" className="clients section-bg">
-                <div className="container" data-aos="fade-up">
+                <div className="container" >
 
                     <div className="section-title">
                         <h2>Clients</h2>
                         <p>They trusted us</p>
                     </div>
 
-                    <div className="clients-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div className="clients-slider swiper">
                         <div className="swiper-wrapper align-items-center">
                             <div className="swiper-slide"><img src="assets/img/clients/client-1.png" className="img-fluid" alt="" /></div>
                             <div className="swiper-slide"><img src="assets/img/clients/client-2.png" className="img-fluid" alt="" /></div>

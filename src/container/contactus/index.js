@@ -59,7 +59,11 @@ const Contactus = () => {
                 myElements[i].style.border = "";
             }
         }
-        
+        if(counter != 0)
+        {
+            Toasts.error('Please Fill The Required Fields')
+            return false;   
+        }
 
         const validateEmail = (email) => {
             const re = /\S+@\S+\.\S+/;

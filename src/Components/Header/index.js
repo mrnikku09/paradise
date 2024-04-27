@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ApiService } from '../../Components/Services/apiservices';
 import constant from '../../Components/Services/constant';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -9,6 +9,7 @@ const Header = () => {
     const [settingData, setsettingData] = useState();
     const [setting_image_path, setsetting_image_path] = useState();
     const [loading, setloading] = useState('');
+    const location = useLocation();
 
 
     const [menudata, setmenudata] = useState([]);
@@ -48,13 +49,15 @@ const Header = () => {
                         loading == false ? <>
                             <div className='d-flex justify-content-between align-items-center w-100'>
                                 <div>
-                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={80} style={{ height: '33px' }}></Skeleton>
+                                    <Skeleton width={80} style={{ height: '33px' }}></Skeleton>
                                 </div>
-                                <div className='d-flex justify-content-between' style={{ gap: '50px' }}>
-                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
-                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
-                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
-                                    <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" width={100} style={{ height: '33px' }}></Skeleton>
+                                <div className='d-flex justify-content-between' style={{ gap: '30px' }}>
+                                    {[...Array(5)].map((_, index) => (
+                                        <>
+
+                                                <Skeleton width={100} height={33}></Skeleton>
+                                        </>
+                                    ))}
 
                                 </div>
                             </div>
@@ -72,7 +75,7 @@ const Header = () => {
                                         {menudata.length > 0 ?
                                             menudata.map((value, index) => {
                                                 return (
-                                                    <li key={index}><a className="nav-link scrollto" href={`/${value?.menu_slug ? value?.menu_slug : "/"}`}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
+                                                    <li key={index}><a className={`nav-link scrollto`} href={`/${value?.menu_slug ? value?.menu_slug : "/"}`}>{value?.menu_name} <i className="fa-solid fa-house"></i></a></li>
                                                 )
                                             })
                                             : ''
@@ -89,6 +92,7 @@ const Header = () => {
 
                 </div>
             </header>
+
             {/* <!-- Left-aligned modal --> */}
             <div className="modal left fade" id="leftModal" tabindex="-1" role="dialog" aria-labelledby="leftModalLabel" aria-hidden="true">
                 <div className="modal-dialog navbar_model" role="document">

@@ -14,21 +14,45 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
     const [product_image, setproductImage] = useState(null)
     const didMountRef = useRef(true)
 
-
+    // console.log(productdiscount)
     useEffect(() => {
         if (didMountRef.current) {
-            const dataString = {
-                'product_slug': quickModalProductData.product_slug
-            }
-            ApiService.postData('product-details', dataString).then((res) => {
-                if (res.status === 'success') {
-                    setproductData(res?.productDetails)
-                    setproductImage(res?.PRODUCT_IMAGE_PATH)
-                }
-            })
+
+            getproductdetails();
+
         }
         didMountRef.current = false
     }, [])
+
+    let mrpprice = 0;
+    let sellprice = 0;
+    let discount = 0;
+    const [productdiscount, setproductdiscount] = useState(0)
+    const getproductdetails = () => {
+        const dataString = {
+            'product_slug': quickModalProductData.product_slug
+        }
+        ApiService.postData('product-details', dataString).then((res) => {
+            if (res.status === 'success') {
+                setproductData(res?.productDetails)
+                setproductImage(res?.PRODUCT_IMAGE_PATH)
+
+                mrpprice = parseFloat(res?.productDetails?.product_price)
+                sellprice = parseFloat(res?.productDetails?.product_selling_price)
+                console.log(mrpprice)
+                console.log(sellprice)
+                if(!isNaN(mrpprice)&&!isNaN(sellprice))
+                {
+                    discount=((mrpprice-sellprice)*100)/mrpprice
+                    console.log(discount);
+                    discount=Math.floor(discount)
+                    setproductdiscount(discount);
+                }
+            }
+        })
+    }
+
+
 
     // console.log(productData)
     // setproductImage(quickModalProductData)
@@ -44,16 +68,16 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
             <Modal show={showQuick} onHide={handleClose} className="fade custom-modal product_modal modal-lg product_modal_dialog">
                 {/* <div className="modal-dialog modal-lg product_modal_dialog" role="document"> */}
                 {/* <div className="modal-content product_modal_content"> */}
-                    <Modal.Header closeButton>
-                        <Modal.Title className='h6' id="modalLabel">{productData?.product_name ? productData?.product_name : ''}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {
-                            productData != '' ?
-                                <>
-                                    <div id="portfolio-details" className="product-details">
-                                        <div className="container">
-                                            {/* <div className="row gy-4">
+                <Modal.Header closeButton>
+                    <Modal.Title className='h6' id="modalLabel">{productData?.product_name ? productData?.product_name : ''}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {
+                        productData != '' ?
+                            <>
+                                <div id="portfolio-details" className="product-details">
+                                    <div className="container">
+                                        {/* <div className="row gy-4">
                                         <div className="col-lg-6">
                                             <div className="product-details-slider">
                                                 <img src={productData?.product_image ? product_image + productData?.product_image : constant.DEFAULT_IMAGE} alt="" />
@@ -61,7 +85,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                         </div> */}
                                         <div className="row">
 
-                                            <div className="product-single mb-5 row">
+                                            <div className="product-single row g-3">
                                                 <div className="col-lg-6">
                                                     <div className="pss-slider">
                                                         <div className="gallery-page__single">
@@ -78,7 +102,21 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                                     </div>
                                                     <div className="stock-text">Availability:
                                                         <span className="instock">In Stock</span>
-                                                    </div><hr className="product-divider mb-3" />
+                                                    </div>
+                                                    <div className='d-flex'>
+                                                        <div className='product_selling_price'>
+                                                            ₹{productData?.product_selling_price}
+                                                        </div>
+                                                        <div className="product_mrp mx-2">
+                                                            <del>
+                                                                ₹{productData?.product_price}
+                                                            </del>
+                                                        </div>
+                                                        <div className="product_discount">
+                                                            {productdiscount}%
+                                                        </div>
+                                                    </div>
+                                                    <hr className="product-divider mb-3" />
                                                     <div className="product-button">
                                                         <button className="btn btn-primary me-2"><i className="d-icon-bag" ></i>Add To Cart</button>
                                                         <button className="btn btn-primary-outline btn-small ">Quick Enquiry</button>
@@ -111,12 +149,12 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                             {/* </div> */}
 
                                         </div>
-                                        </div>
                                     </div>
-                                </>
-                                : ''
-                        }
-                    </Modal.Body>
+                                </div>
+                            </>
+                            : ''
+                    }
+                </Modal.Body>
                 {/* </div> */}
                 {/* </div> */}
             </Modal>

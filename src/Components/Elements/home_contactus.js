@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ApiService } from '../Services/apiservices';
 import Toasts from '../Extension/Toast/Toasts';
 import { ToastContainer } from 'react-toastify';
+import { Toast } from 'bootstrap';
 
 const Contactus = () => {
     const [settingData, setsettingData] = useState('');
@@ -52,6 +53,11 @@ const Contactus = () => {
                 myElements[i].style.border = "";
             }
         }
+        if(counter != 0)
+        {
+            Toasts.error('Please Fill The Required Fields')
+            return false;   
+        }
         
 
         const validateEmail = (email) => {
@@ -87,7 +93,7 @@ const Contactus = () => {
         <>
             {/* <!-- ======= Contact Us Section ======= --> */}
             <section id="contact" className="contact">
-                <div className="container" data-aos="fade-up">
+                <div className="container" >
 
                     <div className="section-title">
                         <h2>Contact Us</h2>
@@ -98,7 +104,7 @@ const Contactus = () => {
                                 </div>
                     <div className="row">
 
-                        <div className="col-lg-5 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+                        <div className="col-lg-5 d-flex align-items-stretch" >
                             <div className="info">
                                 <div className="address">
                                     <i className="bi bi-geo-alt"></i>
@@ -125,7 +131,7 @@ const Contactus = () => {
 
                         </div>
 
-                        <div className="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+                        <div className="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch"  >
                             <form action="forms/contact.php" method="post" role="form" className="php-email-form">
                                 <div className="row">
                                     <div className="form-group col-md-6">

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ApiService } from '../Services/apiservices';
+import Skeleton from 'react-loading-skeleton';
 
 const Faq = () => {
     const [faqData, setfaqData] = useState([]);
+    const [loading, setloading] = useState(false);
 
     const didMountRef = useRef(true);
 
@@ -11,6 +13,8 @@ const Faq = () => {
             ApiService.fetchData('faq').then((res) => {
                 if (res.status == "success") {
                     setfaqData(res?.faqData);
+                    setloading(true)
+
                 }
             })
 
@@ -21,29 +25,44 @@ const Faq = () => {
         <>
             {/* <!-- ======= F.A.Q Section ======= --> */}
             <section id="faq" className="faq section-bg">
-                <div className="container" data-aos="fade-up">
+                <div className="container" >
 
                     <div className="section-title">
                         <h2>F.A.Q</h2>
                         <p>Frequently Asked Questions</p>
                     </div>
 
-                    <ul className="faq-list" data-aos="fade-up" data-aos-delay="100">
+                    <ul className="faq-list"  >
+                        {
+                            loading == false ? <>
+                                    
+                                    <div className='' style={{ gap: '50px' }}>
+                                        {[...Array(5)].map((_, index) => (
+                                            <>
 
-                    {
-                        faqData.length>0 ?
-                        faqData.map((value,index)=>(
-                            <>
-                            <li key={index}>
-                            <div data-bs-toggle="collapse" className="collapsed question" href={`#faq${value.faq_id}`}>{value.faq_title} <i className="bi bi-chevron-down icon-show"></i><i className="bi bi-chevron-up icon-close"></i></div>
-                            <div id={`faq${value.faq_id}`} className="collapse" data-bs-parent=".faq-list">
-                                <div dangerouslySetInnerHTML={{__html:value.faq_description}}></div>
-                            </div>
-                        </li>
-                            </>
-                        ))
-                        :''
-                    }
+                                                <Skeleton style={{width:'100%'}} height={33}></Skeleton>
+                                            </>
+                                        ))}
+
+                                </div>
+                            </> : <>
+                                {
+                                    faqData.length > 0 ?
+                                        faqData.map((value, index) => (
+                                            <>
+                                                <li key={index}>
+                                                    <div data-bs-toggle="collapse" className="collapsed question" href={`#faq${value.faq_id}`}>{value.faq_title} <i className="bi bi-chevron-down icon-show"></i><i className="bi bi-chevron-up icon-close"></i></div>
+                                                    <div id={`faq${value.faq_id}`} className="collapse" data-bs-parent=".faq-list">
+                                                        <div dangerouslySetInnerHTML={{ __html: value.faq_description }}></div>
+                                                    </div>
+                                                </li>
+                                            </>
+                                        ))
+                                        : ''
+                                }
+                            </>}
+
+
 
                         {/* <li>
                             <div data-bs-toggle="collapse" className="collapsed question" href="#faq1">Non consectetur a erat nam at lectus

@@ -39,7 +39,7 @@ const Homeslider = () => {
             <section id="hero" className="d-flex align-items-center">
         {
             loading ==false ? <>
-                <Skeleton baseColor='#f8f8f8' highlightColor="#ebe9e9" style={{width:'100vw'}} height={500}></Skeleton>
+                <Skeleton style={{width:'100vw'}} height={500}></Skeleton>
             </>:
             <>
             <Swiper

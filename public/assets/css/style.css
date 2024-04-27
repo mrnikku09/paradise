@@ -36,6 +36,7 @@ h5,
 h6,
 .font-primary {
   font-family: "Raleway", sans-serif;
+  font-weight: 600;
 }
 
 /*--------------------------------------------------------------
@@ -637,12 +638,11 @@ section {
 # Portfolio
 --------------------------------------------------------------*/
 .portfolio {
-  margin-bottom: 30px;
   margin-top:70px ;
 }
-.portfolio .portfolio-item {
+/* .portfolio .portfolio-item {
   margin-bottom: 30px;
-}
+} */
 
 .portfolio #portfolio-flters {
   padding: 0;
@@ -679,6 +679,7 @@ section {
   overflow: hidden;
   border-radius: 8px;
   z-index: 1;
+  box-shadow: 0px 0px 7px -3px;
 }
 
 .portfolio .portfolio-wrap::before {
@@ -1197,10 +1198,11 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #fff;
+  /* background: #fff; */
+  /* background */
   color: #212529;
   font-size: 14px;
-  background: #fef8f5;
+  background: #e4e4e4;
 }
 
 #footer .footer-newsletter {
@@ -1257,7 +1259,7 @@ section {
 
 #footer .footer-top {
   padding: 60px 0 30px 0;
-  background: #fff;
+  /* background: #fff; */
 }
 
 #footer .footer-top .footer-contact {
@@ -1587,6 +1589,14 @@ text-align: center;
   background: #eb5d1e;
     color: white;
 }
+
+.product_selling_price{
+  font-weight: 600;
+  font-size: 17px;
+}
+.product_discount{
+  color: green;
+}
 .product_modal .product_modal_dialog{
   height: 70%;
   max-width: 70vw;
@@ -1745,6 +1755,8 @@ text-align: center;
   position: relative;
   z-index: 1;
   max-height: 500px;
+  box-shadow: 0px 0px 7px -3px;
+
 }
 .gallery-page__img img{
   width: 100%;
@@ -1816,7 +1828,7 @@ hr {
   border-color: #d89e53 !important;
   border-color: var(--color-tri) !important;
   color: #fff !important;
-  color: var(--color-white) !important;
+  /* color: var(--color-white) !important; */
 }
 .product-button button {
   border-radius: 5px;
@@ -1867,3 +1879,181 @@ width: 85vw;
     min-width: 100px;
   }
 }
+
+
+/* product Details */
+.card-information {
+  padding-top: 1rem;
+  pointer-events: none;
+  position: relative;
+  z-index: 3;
+}
+.card-information__wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.collection-product-card .caption-with-letter-spacing {
+  margin-bottom: .8rem;
+  margin-top: 0;
+}
+
+.card__title {
+  display: block;
+  margin: 0;
+  max-width: 34.1rem;
+  pointer-events: all;
+  position: relative;
+  z-index: 2;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: .8rem;
+}
+
+.caption-with-letter-spacing{
+  font-weight: 600;
+}
+.price {
+  align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  line-height: 1.5;
+}
+.price dl {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+.price--on-sale .price__sale, .price__sale dd {
+  align-items: center;
+  display: flex;
+}
+.unit-price {
+  display: inline-block;
+  font-size: 1.1rem;
+  letter-spacing: .04rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.price__compare{
+  margin-left: 8px;
+}
+
+.price-item--sale{
+  font-weight: 600;
+  font-size: 17px;
+}
+
+
+
+/*Product category List*/
+.category_list{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category_list ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  
+}
+.category_list ul li{
+  list-style: none;
+}
+
+.category_list button {
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  height: 50px;
+  justify-content: center;
+  min-width: 170px;
+}
+
+.category_list .active
+{
+  background-color: var(--color-tri) !important;
+  color: #fff !important;
+}
+
+.category_list{
+  padding: 20px 0;
+}
+
+.react-loading-skeleton {
+
+  background-color: #ebebeb !important;
+  --base-color:#e4e4e4 !important;
+}
+
+/* product Description */
+.product {
+  padding: 60px 0;
+}
+
+.product .product-list {
+  padding: 0;
+  list-style: none;
+}
+
+.product .product-list li {
+  border-bottom: 1px solid #eae7e5;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.product .product-list .question {
+  display: block;
+  position: relative;
+  font-family: #eb5d1e;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  font-weight: 600;
+  padding-left: 25px;
+  cursor: pointer;
+  color: #c54811;
+  transition: 0.3s;
+}
+
+.product .product-list i {
+  font-size: 16px;
+  position: absolute;
+  left: 0;
+  top: -2px;
+}
+
+.product .product-list p {
+  margin-bottom: 0;
+  padding: 10px 0 0 25px;
+}
+
+.product .product-list .icon-show {
+  display: none;
+}
+
+.product .product-list .collapsed {
+  color: #343a40;
+}
+
+.product .product-list .collapsed:hover {
+  color: #eb5d1e;
+}
+
+.product .product-list .collapsed .icon-show {
+  display: inline-block;
+  transition: 0.6s;
+}
+
+.product .product-list .collapsed .icon-close {
+  display: none;
+  transition: 0.6s;
+}
+
