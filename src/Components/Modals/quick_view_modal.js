@@ -119,7 +119,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                                     <hr className="product-divider mb-3" />
                                                     <div className="product-button">
                                                         <button className="btn btn-primary me-2"><i className="d-icon-bag" ></i>Add To Cart</button>
-                                                        <button className="btn btn-primary-outline btn-small ">Quick Enquiry</button>
+                                                        <button className="btn btn-primary-outline btn-small ">Buy Now</button>
                                                     </div>
                                                     <hr className="product-divider mb-3" />
                                                     {/* <hr className="mt-0" /> */}

@@ -149,6 +149,7 @@ h6,
   color: #4e4039;
   white-space: nowrap;
   transition: 0.3s;
+  font-weight: 600;
 }
 
 .navbar a i,
@@ -360,7 +361,7 @@ h6,
   height: 70vh;
   /* background: #fef8f5; */
   border-bottom: 2px solid #fcebe3;
-  margin: 72px 0 -72px 0;
+  margin: 72px 0 72px 0;
 }
 
 #hero h1 {
@@ -1325,6 +1326,7 @@ section {
   transition: 0.3s;
   display: inline-block;
   line-height: 1;
+  font-weight: 600;
 }
 
 #footer .footer-top .footer-links ul a:hover {
@@ -2057,3 +2059,43 @@ width: 85vw;
   transition: 0.6s;
 }
 
+.product-details .product_quantity
+{
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0px;
+  /* border: solid var(--color-primary) .5px; */
+  background-color: #eaeaea;
+  /* padding: 10px; */
+  max-width: 100px;
+  align-items: center;
+}
+
+.product-details .product_quantity button{
+  border: inherit;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+ 
+/* .product-details .product_quantity .product_decress
+{
+  width: 100%;
+  height: 100%;
+} */
+
+
+.product-details .product_quantity .product_input
+{
+  height: 100%;
+}
+.product-details .product_quantity .product_input input{
+  height: 40px;
+  border: inherit;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 30px;
+}
