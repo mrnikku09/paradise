@@ -11,6 +11,7 @@ import Contactus from '../../Components/Elements/home_contactus';
 import Footer from '../../Components/Footer';
 import Featuredproduct from '../../Components/Elements/home_featured_product';
 import Newsletter from '../../Components/Elements/home_newsletter';
+import Homecategorywiseproduct from '../../Components/Elements/home_category_wise_product';
 
 const Home = () => {
 
@@ -22,6 +23,7 @@ const Home = () => {
             <Homeslider />
             <Featuredproduct/>
             {/* <Servicesection/> */}
+            <Homecategorywiseproduct/>
             <Faq/>
             <Team/>
             {/* <Testimonials/> */}

@@ -4,6 +4,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Modal from "react-bootstrap/Modal";
 import { ApiService } from '../Services/apiservices';
 import constant from '../Services/constant';
+import Toasts from '../Extension/Toast/Toasts';
+import { useNavigate } from 'react-router-dom';
 
 
 const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
@@ -13,10 +15,14 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
     const [productData, setproductData] = useState(null)
     const [product_image, setproductImage] = useState(null)
     const didMountRef = useRef(true)
+    const [visitor_count, setvisitor_count] = useState(0)
+    const navigate=useNavigate()
+    console.log(visitor_count)
 
     // console.log(productdiscount)
     useEffect(() => {
         if (didMountRef.current) {
+            setvisitor_count(Math.floor(Math.random() * (99 - 10 + 1)) + 10);
 
             getproductdetails();
 
@@ -29,6 +35,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
     let discount = 0;
     const [productdiscount, setproductdiscount] = useState(0)
     const getproductdetails = () => {
+
         const dataString = {
             'product_slug': quickModalProductData.product_slug
         }
@@ -41,11 +48,10 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                 sellprice = parseFloat(res?.productDetails?.product_selling_price)
                 console.log(mrpprice)
                 console.log(sellprice)
-                if(!isNaN(mrpprice)&&!isNaN(sellprice))
-                {
-                    discount=((mrpprice-sellprice)*100)/mrpprice
+                if (!isNaN(mrpprice) && !isNaN(sellprice)) {
+                    discount = ((mrpprice - sellprice) * 100) / mrpprice
                     console.log(discount);
-                    discount=Math.floor(discount)
+                    discount = Math.floor(discount)
                     setproductdiscount(discount);
                 }
             }
@@ -61,6 +67,86 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
     }
     const onhide = () => {
         setShowQuick(false);
+    }
+
+
+
+    // product quantity
+    const [productQuantityInput, setproductQuantityInput] = useState(1)
+    const productQuantityAdd = (e) => {
+        setproductQuantityInput((value) => (value + 1))
+    }
+    console.log(productQuantityInput)
+    const productQuantitySub = (e) => {
+
+        setproductQuantityInput((value) => {
+            if (value === 1 || value < 1 || value == undefined || value == null || value == '' || value == NaN) {
+                return value = 1
+
+            } else {
+                return value = value - 1
+
+            }
+        })
+
+    }
+
+
+    // Add To Cart
+
+    const [productDetail, setproductDetail] = useState('');
+    // console.log(productDetail)
+    const addToCart = (productData) => {
+        setproductDetail(productData)
+        let existingCartItemsString = localStorage.getItem('CART_SESSION');
+        let existingCartItems = existingCartItemsString ? JSON.parse(existingCartItemsString) : [];
+        console.log(existingCartItemsString)
+        if (productQuantityInput > productData.product_moq) {
+            console.log('error')
+            Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
+        } else {
+            // localStorage.setItem('CART_SESSION',JSON.stringify(productData));
+            // console.log(productData)
+            // console.log(existingCartItems)
+
+            let existingCartItemsData = existingCartItems.findIndex((value) => {
+                return (
+                    value.product_id === productData.product_id
+                )
+            })
+            console.log(productData.product_moq)
+            if (existingCartItemsData !== -1) {
+                existingCartItems[existingCartItemsData].quantity += productQuantityInput
+                // console.log(existingCartItems[existingCartItemsData].quantity);
+                if (existingCartItems[existingCartItemsData].quantity > productData.product_moq) {
+                    Toasts.error('Out Of Stock')
+                } else {
+
+                    localStorage.setItem('CART_SESSION', JSON.stringify(existingCartItems))
+                    Toasts.success('Product Updated Successfully')
+                }
+            } else {
+
+                let product = {
+                    product_id: Number(productData.product_id),
+                    product_name: productData.product_name,
+                    product_image: productData.product_image ? product_image + productData.product_image : constant.DEFAULT_IMAGE,
+                    product_price: Number(productData.product_price),
+                    product_selling_price: Number(productData.product_selling_price),
+                    product_discount: Number(productData.product_discount),
+                    quantity: Number(productQuantityInput),
+                }
+
+                let updatedCartItems = [...existingCartItems, product];
+
+                localStorage.setItem('CART_SESSION', JSON.stringify(updatedCartItems))
+                Toasts.success('Product Added Successfully')
+            }
+        }
+    }
+
+    const gotocart=()=>{
+        navigate('/cart')
     }
     return (
         <>
@@ -85,8 +171,8 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                         </div> */}
                                         <div className="row">
 
-                                            <div className="product-single row g-3">
-                                                <div className="col-lg-6">
+                                            <div className="product-single row">
+                                                <div className="col-lg-6 mb-3">
                                                     <div className="pss-slider">
                                                         <div className="gallery-page__single">
                                                             <div className="gallery-page__img"><img src={productData?.product_image ? product_image + productData?.product_image : constant.DEFAULT_IMAGE} alt="" />
@@ -103,6 +189,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                                     <div className="stock-text">Availability:
                                                         <span className="instock">In Stock</span>
                                                     </div>
+                                                    
                                                     <div className='d-flex'>
                                                         <div className='product_selling_price'>
                                                             ₹{productData?.product_selling_price}
@@ -116,15 +203,26 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                                             {productdiscount}%
                                                         </div>
                                                     </div>
+                                                    <div className='product_quantity'>
+                                                        <div className="product_decress">
+                                                            <button onClick={productQuantitySub}>-</button>
+                                                        </div>
+                                                        <div className="product_input">
+                                                            <input type="text" value={productQuantityInput} />
+                                                        </div>
+                                                        <div className="product_incress" >
+                                                            <button onClick={productQuantityAdd}>+</button>
+                                                        </div>
+                                                    </div>
                                                     <hr className="product-divider mb-3" />
                                                     <div className="product-button">
-                                                        <button className="btn btn-primary me-2"><i className="d-icon-bag" ></i>Add To Cart</button>
-                                                        <button className="btn btn-primary-outline btn-small ">Buy Now</button>
+                                                        <button className="btn btn-primary me-2"  onClick={(e) => addToCart(productData)}><i className="d-icon-bag" ></i>Add To Cart</button>
+                                                        <button className="btn btn-primary-outline btn-small" onClick={gotocart}>Go To Cart</button>
                                                     </div>
                                                     <hr className="product-divider mb-3" />
                                                     {/* <hr className="mt-0" /> */}
                                                     <p>Real time
-                                                        <span className="rvisitor">+42</span> visitor right now</p>
+                                                        <span className="rvisitor">+{visitor_count}</span> visitor right now</p>
                                                 </div>
                                             </div>
 

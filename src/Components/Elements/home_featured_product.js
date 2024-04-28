@@ -47,59 +47,75 @@ const Featuredproduct = () => {
     return (
         <>
             {/* <!-- ======= Portfolio Section ======= --> */}
-            <section id="portfolio" className="portfolio pb-0">
-                <div className="container portfolio-containerr" >
-                    <div className="row">
-                        <div className="section-title">
-                            <h2>Featured Product</h2>
-                            <p>Check out our beautiful Product</p>
+
+            {
+                loading == false ? <>
+
+                    <div className="container portfolio-containerr" >
+                        <div className="row">
+                            <div className="section-title">
+                                <h2><Skeleton style={{width:'50%'}} height={40}/></h2>
+                                <p><Skeleton style={{width:'30%'}} height={30}/></p>
+                            </div>
+
                         </div>
+                        <div className="row">
 
-                    </div>
+                            <Swiper
+                                spaceBetween={50}
+                                // slidesPerView={3}
+                                modules={[Autoplay, Pagination, Navigation]}
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
+                                breakpoints={{
+                                    0: {
+                                        slidesPerView: 1,
+                                    }, 540: {
+                                        slidesPerView: 2,
+                                    },
+                                    768: {
+                                        slidesPerView: 2,
+                                    },
+                                    1024: {
+                                        slidesPerView: 3,
+                                    },
+                                    1200: {
+                                        slidesPerView: 4,
+                                    },
+                                }}
+                            >
+                                {[...Array(5)].map((_, index) => (
+                                    <>
+                                        <SwiperSlide>
+                                            {/* <div className="col-lg-4"> */}
 
-                    <div className="row">
+                                            <Skeleton height={400}></Skeleton>
+                                            {/* </div> */}
+                                        </SwiperSlide>
+                                    </>
+                                ))}
+                            </Swiper>
+                        </div>
+                    </div >
+
+                </> :
+                    <>
+
                         {
-                            loading == false ? <>
-                                <Swiper
-                                    spaceBetween={50}
-                                    // slidesPerView={3}
-                                    modules={[Autoplay, Pagination, Navigation]}
-                                    autoplay={{
-                                        delay: 2500,
-                                        disableOnInteraction: false,
-                                    }}
-                                    breakpoints={{
-                                        0: {
-                                            slidesPerView: 1,
-                                        }, 540: {
-                                            slidesPerView: 2,
-                                        },
-                                        768: {
-                                            slidesPerView: 2,
-                                        },
-                                        1024: {
-                                            slidesPerView: 3,
-                                        },
-                                        1200: {
-                                            slidesPerView: 4,
-                                        },
-                                    }}
-                                >
-                                    {[...Array(5)].map((_, index) => (
-                                        <>
-                                            <SwiperSlide>
-                                                {/* <div className="col-lg-4"> */}
+                            productData.length > 0 ? <>
+                                <section id="portfolio" className="portfolio pb-0">
+                                    <div className="container portfolio-containerr" >
+                                        <div className="row">
+                                            <div className="section-title">
+                                                <h2>Featured Product</h2>
+                                                <p>Check out our beautiful Product</p>
+                                            </div>
 
-                                                <Skeleton height={400}></Skeleton>
-                                                {/* </div> */}
-                                            </SwiperSlide>
-                                        </>
-                                    ))}
-                                </Swiper>
-                            </> :
-                                <>
-                                    {
-                                        productData.length > 0 ? <>
+                                        </div>
+
+                                        <div className="row">
                                             <Swiper
                                                 // spaceBetween={50}
                                                 // slidesPerView={3}
@@ -190,27 +206,29 @@ const Featuredproduct = () => {
                                                     </>
                                                 ))}
                                             </Swiper>
-                                        </>
-                                            :
-                                            ''
-                                    }
-                                </>
+                                        </div>
+                                        <hr />
+                                        <div className="row mt-3 text-center" style={{ fontSize: '16px', fontWeight: '600' }}>
+                                            <div className="section-title">
+                                                <a href="/product">
+                                                    <p>See All</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </>
+                                :
+                                ''
                         }
 
+                    </>
+            }
 
 
 
-                    </div>
-                    <hr />
-                    <div className="row mt-3 text-center" style={{ fontSize: '16px', fontWeight: '600' }}>
-                        <div className="section-title">
-                            <a href="/product">
-                                <p>See All</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
+
             {/* <!-- End Portfolio Section --> */}
             {/* <div className="modal fade custom-modal product_modal" id="productview" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div className="modal-dialog product_modal_dialog" role="document">

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
 import { ApiService } from '../../Components/Services/apiservices'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import constant from '../../Components/Services/constant'
 import Skeleton from 'react-loading-skeleton'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -23,6 +23,8 @@ const ProductDetails = () => {
     const [loading2, setloading2] = useState(false);
     const [showQuick, setShowQuick] = useState(false);
     const [quickModalProductData, setquickModalProductData] = useState(null);
+    const [visitor_count,setvisitor_count]=useState(0)
+    const navigate=useNavigate()
 
 
 
@@ -32,6 +34,7 @@ const ProductDetails = () => {
     useEffect(() => {
         if (didMountRef.current) {
             getproductdetails();
+            setvisitor_count(Math.floor(Math.random() * (99 - 10 + 1)) + 10);
 
         }
         didMountRef.current = false
@@ -100,35 +103,58 @@ const ProductDetails = () => {
 
     const [productDetail, setproductDetail] = useState('');
     // console.log(productDetail)
-    const addToCart = (e) => {
-        setproductDetail(e)
-
-        const existingCartItemsString = localStorage.getItem('CART_SESSION');
-        const existingCartItems = existingCartItemsString ? JSON.parse(existingCartItemsString) : [];
-
-        if (productQuantityInput > productDetail.product_moq) {
+    const addToCart = (productData) => {
+        setproductDetail(productData)
+        let existingCartItemsString = localStorage.getItem('CART_SESSION');
+        let existingCartItems = existingCartItemsString ? JSON.parse(existingCartItemsString) : [];
+        console.log(existingCartItemsString)
+        if (productQuantityInput > productData.product_moq) {
             console.log('error')
-            Toasts.error('Out Of Stock');
+            Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
         } else {
-            // localStorage.setItem('CART_SESSION',JSON.stringify(productDetail));
-            console.log(productDetail)
-            const product = {
-                product_id: productDetail.product_id,
-                product_name: productDetail.product_name,
-                product_image: productDetail.product_image ? productDetail.product_image : constant.DEFAULT_IMAGE,
-                product_price: productDetail.product_price,
-                product_selling_price: productDetail.product_selling_price,
-                product_discount: productDetail.product_discount,
-                quantity: productQuantityInput,
+            // localStorage.setItem('CART_SESSION',JSON.stringify(productData));
+            // console.log(productData)
+            // console.log(existingCartItems)
+
+            let existingCartItemsData = existingCartItems.findIndex((value) => {
+                return (
+                    value.product_id === productData.product_id
+                )
+            })
+            console.log(productData.product_moq)
+            if (existingCartItemsData !== -1) {
+                existingCartItems[existingCartItemsData].quantity += productQuantityInput
+                // console.log(existingCartItems[existingCartItemsData].quantity);
+                if(existingCartItems[existingCartItemsData].quantity>productData.product_moq)
+                {
+                    Toasts.error('Out Of Stock')
+                }else{
+
+                    localStorage.setItem('CART_SESSION', JSON.stringify(existingCartItems))
+                    Toasts.success('Product Updated Successfully')
+                }
+            }else{
+
+                let product = {
+                    product_id: Number(productData.product_id),
+                    product_name: productData.product_name,
+                    product_image: productData.product_image ? product_image + productData.product_image : constant.DEFAULT_IMAGE,
+                    product_price: Number(productData.product_price),
+                    product_selling_price: Number(productData.product_selling_price),
+                    product_discount: Number(productData.product_discount),
+                    quantity: Number(productQuantityInput),
+                }
+    
+                let updatedCartItems = [...existingCartItems, product];
+    
+                localStorage.setItem('CART_SESSION', JSON.stringify(updatedCartItems))
+                Toasts.success('Product Added Successfully')
             }
-
-            const updatedCartItems = [...existingCartItems, product];
-
-            localStorage.setItem('CART_SESSION', JSON.stringify(updatedCartItems))
-            Toasts.success('Product Added Successfully')
         }
     }
-
+    const gotocart=()=>{
+        navigate('/cart')
+    }
     return (
         <>
             <Header />
@@ -208,17 +234,7 @@ const ProductDetails = () => {
                                                         <div className="stock-text">Availability:
                                                             <span className="instock">In Stock</span>
                                                         </div>
-                                                        <div className='product_quantity'>
-                                                            <div className="product_decress">
-                                                                <button onClick={productQuantitySub}>-</button>
-                                                            </div>
-                                                            <div className="product_input">
-                                                                <input type="text" value={productQuantityInput} />
-                                                            </div>
-                                                            <div className="product_incress" >
-                                                                <button onClick={productQuantityAdd}>+</button>
-                                                            </div>
-                                                        </div>
+                                                        
                                                         <div className='d-flex'>
                                                             <div className='product_selling_price'>
                                                                 ₹{productData?.product_selling_price}
@@ -232,15 +248,26 @@ const ProductDetails = () => {
                                                                 {productdiscount}%
                                                             </div>
                                                         </div>
+                                                        <div className='product_quantity'>
+                                                            <div className="product_decress">
+                                                                <button onClick={productQuantitySub}>-</button>
+                                                            </div>
+                                                            <div className="product_input">
+                                                                <input type="text" value={productQuantityInput} />
+                                                            </div>
+                                                            <div className="product_incress" >
+                                                                <button onClick={productQuantityAdd}>+</button>
+                                                            </div>
+                                                        </div>
                                                         <hr className="product-divider mb-3" />
                                                         <div className="product-button">
                                                             <button className="btn btn-primary me-2" onClick={(e) => addToCart(productData)}><i className="d-icon-bag" ></i>Add To Cart</button>
-                                                            <button className="btn btn-primary-outline btn-small ">Buy Now</button>
+                                                            <button className="btn btn-primary-outline btn-small " onClick={gotocart}>Go To Cart</button>
                                                         </div>
                                                         <hr className="product-divider mb-3" />
                                                         {/* <hr className="mt-0" /> */}
                                                         <p>Real time
-                                                            <span className="rvisitor">+42</span> visitor right now</p>
+                                                            <span className="rvisitor">+{visitor_count}</span> visitor right now</p>
                                                     </div>
 
                                                 </div>
@@ -374,7 +401,7 @@ const ProductDetails = () => {
                                                         <>
                                                             <SwiperSlide className='px-3'>
                                                                 <div className="portfolio-item filter-app" key={index}>
-                                                                    <a href={`product/${value.product_slug}`}>
+                                                                    <a href={`/product/${value.product_slug}`}>
                                                                         <div className="portfolio-wrap">
                                                                             <img src={value?.product_image != '' ? product_image + value?.product_image : constant.DEFAULT_IMAGE} className="img-fluid" alt="" style={{ height: '285px' }} />
 

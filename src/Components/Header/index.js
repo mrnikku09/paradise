@@ -10,6 +10,12 @@ const Header = () => {
     const [setting_image_path, setsetting_image_path] = useState();
     const [loading, setloading] = useState('');
     const location = useLocation();
+    const [cartsesssion, setcartsesssion] = useState('')
+
+    const cartsessiondata = localStorage.getItem('CART_SESSION')
+    // console.log(cartsessiondata)
+    const existingCartItems = cartsessiondata ? JSON.parse(cartsessiondata) : []
+    console.log(existingCartItems)
 
 
     const [menudata, setmenudata] = useState([]);
@@ -55,7 +61,7 @@ const Header = () => {
                                     {[...Array(5)].map((_, index) => (
                                         <>
 
-                                                <Skeleton width={100} height={33}></Skeleton>
+                                            <Skeleton width={100} height={33}></Skeleton>
                                         </>
                                     ))}
 
@@ -82,7 +88,19 @@ const Header = () => {
                                         }
 
 
-                                        <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li>
+                                        {/* <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li> */}
+                                        {
+                                            existingCartItems.length > 0 ? <>
+                                                <li>
+                                                    <a class="cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">{existingCartItems.length}</span></a>
+                                                </li>
+
+                                            </> : <>
+                                                <li>
+                                                    <a class="cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">0</span></a>
+                                                </li>
+                                            </>
+                                        }
                                     </ul>
                                     <i className="bi bi-list mobile-nav-toggle" data-bs-toggle="modal" data-bs-target="#leftModal"></i>
                                 </nav>
