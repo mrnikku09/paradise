@@ -186,7 +186,7 @@ const Product = () => {
                                         productData.length > 0 ?
                                             productData.map((value, index) => (
                                                 <>
-                                                    <div className="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-app" key={index}>
+                                                    <div className="col-xl-3 col-lg-4 col-6 portfolio-item filter-app" key={index}>
                                                         <a href={`product/${value.product_slug}`}>
                                                             <div className="portfolio-wrap">
                                                                 <img src={value?.product_image != '' ? productImage + value?.product_image : constant.DEFAULT_IMAGE} className="img-fluid" alt="" />

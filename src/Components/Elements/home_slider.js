@@ -47,7 +47,7 @@ const Homeslider = () => {
                     slidesPerView={1}
                     modules={[Autoplay, Pagination, Navigation]}
                     autoplay={{
-                        delay: 2500,
+                        delay: 2000,
                         disableOnInteraction: false,
                     }}>
 

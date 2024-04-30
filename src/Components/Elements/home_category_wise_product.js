@@ -79,24 +79,24 @@ const Homecategorywiseproduct = () => {
                                                         // slidesPerView={3}
                                                         modules={[Autoplay, Pagination, Navigation]}
                                                         autoplay={{
-                                                            delay: 2500,
+                                                            delay: 2000,
                                                             disableOnInteraction: false,
                                                         }}
                                                         breakpoints={{
                                                             0: {
-                                                                slidesPerView: 1,
-                                                            }, 540: {
-                                                                slidesPerView: 2,
-                                                            },
-                                                            768: {
-                                                                slidesPerView: 2,
-                                                            },
-                                                            1024: {
-                                                                slidesPerView: 3,
-                                                            },
-                                                            1200: {
-                                                                slidesPerView: 4,
-                                                            },
+                                                        slidesPerView: 1.2,
+                                                    }, 540: {
+                                                        slidesPerView: 2,
+                                                    },
+                                                    768: {
+                                                        slidesPerView: 2,
+                                                    },
+                                                    1024: {
+                                                        slidesPerView: 3,
+                                                    },
+                                                    1200: {
+                                                        slidesPerView: 4,
+                                                    },
                                                         }}
                                                     >
                                                         {[...Array(5)].map((_, index) => (
@@ -118,25 +118,25 @@ const Homecategorywiseproduct = () => {
                                                                     // spaceBetween={50}
                                                                     // slidesPerView={3}
                                                                     modules={[Autoplay, Pagination, Navigation]}
-                                                                    // autoplay={{
-                                                                    //     delay: 2500,
-                                                                    //     disableOnInteraction: false,
-                                                                    // }}
+                                                                    autoplay={{
+                                                                        delay: 2000,
+                                                                        disableOnInteraction: false,
+                                                                    }}
                                                                     breakpoints={{
                                                                         0: {
-                                                                            slidesPerView: 1,
-                                                                        }, 540: {
-                                                                            slidesPerView: 2,
-                                                                        },
-                                                                        768: {
-                                                                            slidesPerView: 2,
-                                                                        },
-                                                                        1024: {
-                                                                            slidesPerView: 3,
-                                                                        },
-                                                                        1200: {
-                                                                            slidesPerView: 4,
-                                                                        },
+                                                        slidesPerView: 1.2,
+                                                    }, 540: {
+                                                        slidesPerView: 2,
+                                                    },
+                                                    768: {
+                                                        slidesPerView: 2,
+                                                    },
+                                                    1024: {
+                                                        slidesPerView: 3,
+                                                    },
+                                                    1200: {
+                                                        slidesPerView: 4,
+                                                    },
                                                                     }}
 
                                                                 >

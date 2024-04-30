@@ -120,10 +120,10 @@ const Featuredproduct = () => {
                                                 // spaceBetween={50}
                                                 // slidesPerView={3}
                                                 modules={[Autoplay, Pagination, Navigation]}
-                                                // autoplay={{
-                                                //     delay: 2500,
-                                                //     disableOnInteraction: false,
-                                                // }}
+                                                autoplay={{
+                                                    delay: 2000,
+                                                    disableOnInteraction: false,
+                                                }}
                                                 breakpoints={{
                                                     0: {
                                                         slidesPerView: 1.2,

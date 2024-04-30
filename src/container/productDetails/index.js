@@ -23,8 +23,8 @@ const ProductDetails = () => {
     const [loading2, setloading2] = useState(false);
     const [showQuick, setShowQuick] = useState(false);
     const [quickModalProductData, setquickModalProductData] = useState(null);
-    const [visitor_count,setvisitor_count]=useState(0)
-    const navigate=useNavigate()
+    const [visitor_count, setvisitor_count] = useState(0)
+    const navigate = useNavigate()
 
 
 
@@ -125,15 +125,14 @@ const ProductDetails = () => {
             if (existingCartItemsData !== -1) {
                 existingCartItems[existingCartItemsData].quantity += productQuantityInput
                 // console.log(existingCartItems[existingCartItemsData].quantity);
-                if(existingCartItems[existingCartItemsData].quantity>productData.product_moq)
-                {
+                if (existingCartItems[existingCartItemsData].quantity > productData.product_moq) {
                     Toasts.error('Out Of Stock')
-                }else{
+                } else {
 
                     localStorage.setItem('CART_SESSION', JSON.stringify(existingCartItems))
                     Toasts.success('Product Updated Successfully')
                 }
-            }else{
+            } else {
 
                 let product = {
                     product_id: Number(productData.product_id),
@@ -144,15 +143,15 @@ const ProductDetails = () => {
                     product_discount: Number(productData.product_discount),
                     quantity: Number(productQuantityInput),
                 }
-    
+
                 let updatedCartItems = [...existingCartItems, product];
-    
+
                 localStorage.setItem('CART_SESSION', JSON.stringify(updatedCartItems))
                 Toasts.success('Product Added Successfully')
             }
         }
     }
-    const gotocart=()=>{
+    const gotocart = () => {
         navigate('/cart')
     }
     return (
@@ -234,7 +233,7 @@ const ProductDetails = () => {
                                                         <div className="stock-text">Availability:
                                                             <span className="instock">In Stock</span>
                                                         </div>
-                                                        
+
                                                         <div className='d-flex'>
                                                             <div className='product_selling_price'>
                                                                 ₹{productData?.product_selling_price}
@@ -278,14 +277,15 @@ const ProductDetails = () => {
                                             {/* </div> */}
 
                                         </div>
-                                        <div className="product p-0">
-                                            <div className="container ">
-                                                <div className="row">
-                                                    <div className="col-lg-12">
-                                                        <ul className="product-list"  >
+                                        {
+                                            productData.product_description != null ?
+                                                <div className="product p-0">
+                                                    <div className="container ">
+                                                        <div className="row">
+                                                            <div className="col-lg-12">
+                                                                <ul className="product-list"  >
 
-                                                            {
-                                                                productData.product_description != '' ?
+
                                                                     <li >
                                                                         <div data-bs-toggle="collapse" className="collapsed question" href={`#product${productData.product_id}`}>Discription <i className="bi bi-chevron-down icon-show"></i><i className="bi bi-chevron-up icon-close"></i></div>
                                                                         <div id={`product${productData.product_id}`} className="collapse" data-bs-parent=".product-list">
@@ -293,14 +293,15 @@ const ProductDetails = () => {
                                                                             {/* <div className='text-black'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi accusamus adipisci quasi eos quas! Molestias voluptas ducimus natus explicabo, quam non ipsum inventore modi sunt delectus aut dicta. Illo, eaque itaque! Magni, consequuntur laudantium?</div> */}
                                                                         </div>
                                                                     </li>
-                                                                    : ''
-                                                            }
 
-                                                        </ul>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                                : ''
+                                        }
                                     </section>
                                 </>
                                 : ''
@@ -343,7 +344,7 @@ const ProductDetails = () => {
                                             0: {
                                                 slidesPerView: 1,
                                             }, 540: {
-                                                slidesPerView: 2,
+                                                slidesPerView: 1.5,
                                             },
                                             768: {
                                                 slidesPerView: 2,
@@ -383,7 +384,7 @@ const ProductDetails = () => {
                                                         0: {
                                                             slidesPerView: 1,
                                                         }, 400: {
-                                                            slidesPerView: 2,
+                                                            slidesPerView: 1.5,
                                                         },
                                                         768: {
                                                             slidesPerView: 3,
