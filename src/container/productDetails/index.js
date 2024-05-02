@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
 import { ApiService } from '../../Components/Services/apiservices'
@@ -12,6 +12,7 @@ import QuickViewModal from '../../Components/Modals/quick_view_modal'
 import Toasts from '../../Components/Extension/Toast/Toasts';
 
 import { ToastContainer } from 'react-toastify'
+import DataContext from '../../Components/Context'
 
 const ProductDetails = () => {
 
@@ -24,6 +25,8 @@ const ProductDetails = () => {
     const [showQuick, setShowQuick] = useState(false);
     const [quickModalProductData, setquickModalProductData] = useState(null);
     const [visitor_count, setvisitor_count] = useState(0)
+    const{cartCount,setcartCount}=useContext(DataContext)
+
     const navigate = useNavigate()
 
 
@@ -58,11 +61,11 @@ const ProductDetails = () => {
                 setproductImage(res?.PRODUCT_IMAGE_PATH)
                 mrpprice = parseFloat(res?.productDetails?.product_price)
                 sellprice = parseFloat(res?.productDetails?.product_selling_price)
-                console.log(mrpprice)
-                console.log(sellprice)
+                // console.log(mrpprice)
+                // console.log(sellprice)
                 if (!isNaN(mrpprice) && !isNaN(sellprice)) {
                     discount = ((mrpprice - sellprice) * 100) / mrpprice
-                    console.log(discount);
+                    // console.log(discount);
                     discount = Math.floor(discount)
                     setproductdiscount(discount);
                 }
@@ -83,7 +86,7 @@ const ProductDetails = () => {
     const productQuantityAdd = (e) => {
         setproductQuantityInput((value) => (value + 1))
     }
-    console.log(productQuantityInput)
+    // console.log(productQuantityInput)
     const productQuantitySub = (e) => {
 
         setproductQuantityInput((value) => {
@@ -107,7 +110,7 @@ const ProductDetails = () => {
         setproductDetail(productData)
         let existingCartItemsString = localStorage.getItem('CART_SESSION');
         let existingCartItems = existingCartItemsString ? JSON.parse(existingCartItemsString) : [];
-        console.log(existingCartItemsString)
+        // console.log(existingCartItemsString)
         if (productQuantityInput > productData.product_moq) {
             console.log('error')
             Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
@@ -121,7 +124,7 @@ const ProductDetails = () => {
                     value.product_id === productData.product_id
                 )
             })
-            console.log(productData.product_moq)
+            // console.log(productData.product_moq)
             if (existingCartItemsData !== -1) {
                 existingCartItems[existingCartItemsData].quantity += productQuantityInput
                 // console.log(existingCartItems[existingCartItemsData].quantity);
@@ -139,6 +142,7 @@ const ProductDetails = () => {
                     product_name: productData.product_name,
                     product_image: productData.product_image ? product_image + productData.product_image : constant.DEFAULT_IMAGE,
                     product_price: Number(productData.product_price),
+                    product_moq: Number(productData.product_moq),
                     product_selling_price: Number(productData.product_selling_price),
                     product_discount: Number(productData.product_discount),
                     quantity: Number(productQuantityInput),
@@ -147,6 +151,8 @@ const ProductDetails = () => {
                 let updatedCartItems = [...existingCartItems, product];
 
                 localStorage.setItem('CART_SESSION', JSON.stringify(updatedCartItems))
+                setcartCount(cartCount+1)
+
                 Toasts.success('Product Added Successfully')
             }
         }
@@ -329,11 +335,11 @@ const ProductDetails = () => {
 
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row mx-1">
                             {
                                 loading2 == false ? <>
                                     <Swiper
-                                        spaceBetween={50}
+                                        spaceBetween={30}
                                         // slidesPerView={3}
                                         modules={[Autoplay, Pagination, Navigation]}
                                         autoplay={{
@@ -343,8 +349,8 @@ const ProductDetails = () => {
                                         breakpoints={{
                                             0: {
                                                 slidesPerView: 1,
-                                            }, 540: {
-                                                slidesPerView: 1.5,
+                                            }, 400: {
+                                                slidesPerView: 2,
                                             },
                                             768: {
                                                 slidesPerView: 2,
@@ -362,7 +368,7 @@ const ProductDetails = () => {
                                                 <SwiperSlide>
                                                     {/* <div className="col-lg-4"> */}
 
-                                                    <Skeleton height={400}></Skeleton>
+                                                    <Skeleton height={300}></Skeleton>
                                                     {/* </div> */}
                                                 </SwiperSlide>
                                             </>
@@ -376,10 +382,10 @@ const ProductDetails = () => {
                                                     // spaceBetween={50}
                                                     // slidesPerView={3}
                                                     modules={[Autoplay, Pagination, Navigation]}
-                                                    // autoplay={{
-                                                    //     delay: 2500,
-                                                    //     disableOnInteraction: false,
-                                                    // }}
+                                                    autoplay={{
+                                                        delay: 2000,
+                                                        disableOnInteraction: false,
+                                                    }}
                                                     breakpoints={{
                                                         0: {
                                                             slidesPerView: 1,
@@ -390,11 +396,9 @@ const ProductDetails = () => {
                                                             slidesPerView: 3,
                                                         },
                                                         1024: {
-                                                            slidesPerView: 4,
+                                                            slidesPerView: 4.5,
                                                         },
-                                                        1200: {
-                                                            slidesPerView: 5,
-                                                        },
+                                                        
                                                     }}
 
                                                 >

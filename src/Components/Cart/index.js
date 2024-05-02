@@ -1,28 +1,34 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../Header'
 import Footer from '../Footer'
 import constant from '../Services/constant'
 import { useNavigate } from 'react-router-dom'
 
 import Toasts from '../Extension/Toast/Toasts'
+
 import { ToastContainer } from 'react-toastify'
-import { RiDeleteBack2Fill, RiDeleteBin2Fill, RiHeartFill } from '@remixicon/react'
+import { RiDeleteBack2Fill, RiDeleteBin2Fill, RiDeleteBin7Fill, RiDeleteBin7Line, RiHeartFill } from '@remixicon/react'
 import { ApiService } from '../Services/apiservices'
 import { Spinner } from 'react-bootstrap'
+import DataContext from '../Context'
 
 const Cart = () => {
 
     const [loading, setloading] = useState(false)
 
-    const navigate = useNavigate();
+    const { cartCount, setcartCount } = useContext(DataContext)
+    const { cartsummary,setcartsummary,rerenderdata } = useContext(DataContext)
+
+    // console.log(cartCount)
+    // const navigate = useNavigate();
     let cartsessiondata = localStorage.getItem('CART_SESSION')
     let existingCartItems = cartsessiondata ? JSON.parse(cartsessiondata) : []
 
-
+    
 
     const [productQuantityInput, setproductQuantityInput] = useState(1)
     const productQuantityAdd = (productData) => {
-
+        // console.log(productData)
         setloading(true)
         let cartsessiondata = localStorage.getItem('CART_SESSION')
         let existingCartItems = cartsessiondata ? JSON.parse(cartsessiondata) : []
@@ -34,13 +40,23 @@ const Cart = () => {
             )
         })
         // console.log(existingCartItems[existingCartItemsupdate].quantity)
-        existingCartItems[existingCartItemsupdate].quantity += 1
-        localStorage.setItem("CART_SESSION", JSON.stringify(existingCartItems));
-        navigate('/cart')
-        setTimeout(() => {
+        if (existingCartItems[existingCartItemsupdate].quantity == existingCartItems[existingCartItemsupdate].product_moq) {
+            Toasts.error(`You Can Add Only ${existingCartItems[existingCartItemsupdate].product_moq} Items`);
             setloading(false)
-            Toasts.success("Cart Updated Successfully!!!");
-        }, 500);
+
+        } else {
+            existingCartItems[existingCartItemsupdate].quantity += 1
+            localStorage.setItem("CART_SESSION", JSON.stringify(existingCartItems));
+
+            // navigate('/cart')
+        rerenderdata();
+
+            setTimeout(() => {
+                setloading(false)
+                Toasts.success("Cart Updated Successfully!!!");
+            }, 500);
+        }
+
 
 
 
@@ -60,11 +76,14 @@ const Cart = () => {
 
 
         if (productData.quantity == 1) {
-            console.log(1)
+            // console.log(1)
             // existingCartItems[existingCartItemsupdate].splice()
             existingCartItems.splice(existingCartItemsupdate, 1);
             localStorage.setItem("CART_SESSION", JSON.stringify(existingCartItems));
-            navigate('/cart')
+            setcartCount(cartCount - 1)
+            // navigate('/cart')
+        rerenderdata();
+
             setTimeout(() => {
                 setloading(false)
                 Toasts.success("Item Removed Successfully!!!");
@@ -74,7 +93,9 @@ const Cart = () => {
 
             existingCartItems[existingCartItemsupdate].quantity -= 1
             localStorage.setItem("CART_SESSION", JSON.stringify(existingCartItems));
-            navigate('/cart')
+            // navigate('/cart')
+        rerenderdata();
+
             setTimeout(() => {
                 setloading(false)
                 Toasts.success("Cart Updated Successfully!!!");
@@ -98,16 +119,20 @@ const Cart = () => {
 
         existingCartItems.splice(existingCartItemsupdate, 1);
         localStorage.setItem('CART_SESSION', JSON.stringify(existingCartItems))
-        navigate('/cart')
+        // navigate('/cart')
+        setcartCount(cartCount - 1)
         
         
+        rerenderdata();
         setTimeout(() => {
             setloading(false)
             Toasts.success("Item Delete Successfully!!!");
 
         }, 500);
 
+
     }
+
 
     // navigate('/home');
 
@@ -130,12 +155,12 @@ const Cart = () => {
                             </> : <>
                                 {
                                     existingCartItems.length > 0 ? <>
-                                        <div className="row text-center">
+                                        <div className="row">
                                             <h3 className='mb-5'>My Cart</h3>
                                         </div>
                                         <div className="row">
                                             <ToastContainer />
-                                            <div className="col-lg-12">
+                                            <div className="col-lg-8">
                                                 {
                                                     existingCartItems.map((value, index) => (
                                                         <>
@@ -166,7 +191,7 @@ const Cart = () => {
                                                                                 </div>
                                                                             </div>
                                                                             <div className="delete_item">
-                                                                                <RiDeleteBin2Fill size={25} color="black" className="my-icon" onClick={(e) => productQuantitydelete(value)} style={{ cursor: 'pointer' }} />
+                                                                                <RiDeleteBin7Line size={25} color="black" className="my-icon" onClick={(e) => productQuantitydelete(value)} style={{ cursor: 'pointer' }} />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -177,6 +202,34 @@ const Cart = () => {
                                                 }
 
                                             </div>
+
+
+                                            <div class="col-lg-4">
+                                                {/* <div class="panel p-4 mb-3" style={{border: "1px solid rgb(238, 238, 238);"}}>
+                                                    <div class="panel-body">
+                                                        <div class="applycoup-desktop">
+                                                            <div class="applycoup-mobile-text"><img src="/img/presents.png" /><h6 class="mb-0 tx-12">Apply Coupon</h6>
+                                                            </div>
+                                                            <div class="applycoup-mobile-arrow"><i class="d-icon-angle-right"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> */}
+                                                <div class="panel p-4 mb-3" style={{border: "1px solid rgb(238, 238, 238);"}}>
+                                                    <div class="panel-header">Price Details
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="pcb-list mt-3"><ul><li>Item Total<span class="ml-auto">₹{cartsummary.totalmrp}</span></li><li>Discount<span class="ml-auto tx-green">-₹{cartsummary.discount}</span></li><li>Coupon Discount<span class="ml-auto tx-green">-₹0.00</span></li><li> Shipping &amp; taxes calculated at checkout</li></ul>
+                                                        </div><hr />
+                                                        <div class="pcb-list-second"><ul><li>Total Amount<span class="ml-auto">₹{cartsummary.totalamount}</span></li></ul>
+                                                        </div><hr /><p class="text-center mt-20">We Accepted all Major Cards</p>
+                                                        <div class="cardlist"><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-discover"></i><i class="fab fa-cc-visa"></i>
+                                                        </div>
+                                                    </div>
+                                                </div><a href="javascript:void(0)" class="btn btn-primary btn-block btn-large w-100">Proceed to Checkout</a>
+
+                                                
+                                            </div>
                                         </div>
                                     </> : <>
                                         <div className="row">
@@ -184,8 +237,9 @@ const Cart = () => {
                                                 <ToastContainer />
 
                                                 <div className="empty_cart">
-                                                    <img src="assets/img/empty-cart.webp" style={{ height: '200px' }} alt="" />
-                                                    <h5>Cart Is Empty</h5>
+                                                    <img src="assets/img/empty-cart.webp" style={{ height: '300px' }} alt="" />
+                                                    <h5 className='mb-5'>Cart Is Empty</h5>
+                                                    <a href="/home" class="btn btn-primary btn-block btn-large">Continue Shopping</a>
                                                 </div>
                                             </div>
                                         </div>

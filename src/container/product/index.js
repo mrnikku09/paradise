@@ -173,9 +173,9 @@ const Product = () => {
 
                                 {[...Array(6)].map((_, index) => (
                                     <>
-                                        <div className="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-app">
+                                        <div className="col-xl-3 col-lg-4 col-6 portfolio-item filter-app">
 
-                                            <Skeleton style={{ width: '100%' }} height={400}></Skeleton>
+                                            <Skeleton style={{ width: '100%' }} height={300}></Skeleton>
                                         </div>
                                     </>
                                 ))

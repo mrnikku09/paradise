@@ -71,11 +71,11 @@ const Homecategorywiseproduct = () => {
                                                 </h4>
                                             </div>
                                         </div>
-                                        <div className="row mb-5">
+                                        <div className="row mb-5 mx-1">
                                             {
                                                 loading == false ? <>
                                                     <Swiper
-                                                        spaceBetween={50}
+                                                        spaceBetween={30}
                                                         // slidesPerView={3}
                                                         modules={[Autoplay, Pagination, Navigation]}
                                                         autoplay={{
@@ -84,7 +84,7 @@ const Homecategorywiseproduct = () => {
                                                         }}
                                                         breakpoints={{
                                                             0: {
-                                                        slidesPerView: 1.2,
+                                                        slidesPerView: 2,
                                                     }, 540: {
                                                         slidesPerView: 2,
                                                     },
@@ -104,7 +104,7 @@ const Homecategorywiseproduct = () => {
                                                                 <SwiperSlide>
                                                                     {/* <div className="col-lg-4"> */}
 
-                                                                    <Skeleton height={400}></Skeleton>
+                                                                    <Skeleton height={300}></Skeleton>
                                                                     {/* </div> */}
                                                                 </SwiperSlide>
                                                             </>
@@ -124,7 +124,7 @@ const Homecategorywiseproduct = () => {
                                                                     }}
                                                                     breakpoints={{
                                                                         0: {
-                                                        slidesPerView: 1.2,
+                                                        slidesPerView: 2,
                                                     }, 540: {
                                                         slidesPerView: 2,
                                                     },
@@ -224,7 +224,7 @@ const Homecategorywiseproduct = () => {
                                 {[...Array(3)].map((_, index) => (
                                     <>
                                         <Swiper
-                                            spaceBetween={50}
+                                            spaceBetween={30}
                                             // slidesPerView={3}
                                            
                                             modules={[Autoplay, Pagination, Navigation]}
@@ -234,7 +234,7 @@ const Homecategorywiseproduct = () => {
                                             }}
                                             breakpoints={{
                                                 0: {
-                                                    slidesPerView: 1,
+                                                    slidesPerView: 2,
                                                 }, 540: {
                                                     slidesPerView: 2,
                                                 },
@@ -254,7 +254,7 @@ const Homecategorywiseproduct = () => {
                                                     <SwiperSlide className='mb-5'>
                                                         {/* <div className="col-lg-4"> */}
 
-                                                        <Skeleton height={400}></Skeleton>
+                                                        <Skeleton height={300}></Skeleton>
                                                         {/* </div> */}
                                                     </SwiperSlide>
                                                 </>

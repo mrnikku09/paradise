@@ -10,10 +10,13 @@ import Contactus from './container/contactus';
 import Product from './container/product';
 import ProductDetails from './container/productDetails';
 import Cart from './Components/Cart';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
+
       <Router>
         <Routes>
           <Route exact path='/' activeClassName="active" element={<Home />} />

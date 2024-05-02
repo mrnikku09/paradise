@@ -59,10 +59,10 @@ const Featuredproduct = () => {
                             </div>
 
                         </div>
-                        <div className="row">
+                        <div className="row mx-1">
 
                             <Swiper
-                                spaceBetween={50}
+                                spaceBetween={30}
                                 // slidesPerView={3}
                                 modules={[Autoplay, Pagination, Navigation]}
                                 autoplay={{
@@ -71,7 +71,7 @@ const Featuredproduct = () => {
                                 }}
                                 breakpoints={{
                                     0: {
-                                        slidesPerView: 1,
+                                        slidesPerView: 2,
                                     }, 540: {
                                         slidesPerView: 2,
                                     },
@@ -91,7 +91,7 @@ const Featuredproduct = () => {
                                         <SwiperSlide>
                                             {/* <div className="col-lg-4"> */}
 
-                                            <Skeleton height={400}></Skeleton>
+                                            <Skeleton height={300}></Skeleton>
                                             {/* </div> */}
                                         </SwiperSlide>
                                     </>
@@ -126,7 +126,7 @@ const Featuredproduct = () => {
                                                 }}
                                                 breakpoints={{
                                                     0: {
-                                                        slidesPerView: 1.2,
+                                                        slidesPerView: 2,
                                                     }, 540: {
                                                         slidesPerView: 2,
                                                     },

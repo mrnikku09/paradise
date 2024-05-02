@@ -1,11 +1,12 @@
 // import { Modal } from 'bootstrap';
 import Button from 'react-bootstrap/Button';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Modal from "react-bootstrap/Modal";
 import { ApiService } from '../Services/apiservices';
 import constant from '../Services/constant';
 import Toasts from '../Extension/Toast/Toasts';
 import { useNavigate } from 'react-router-dom';
+import DataContext from '../Context';
 
 
 const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
@@ -16,6 +17,8 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
     const [product_image, setproductImage] = useState(null)
     const didMountRef = useRef(true)
     const [visitor_count, setvisitor_count] = useState(0)
+    const{cartCount,setcartCount}=useContext(DataContext)
+
     const navigate=useNavigate()
     console.log(visitor_count)
 
@@ -100,7 +103,6 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
         setproductDetail(productData)
         let existingCartItemsString = localStorage.getItem('CART_SESSION');
         let existingCartItems = existingCartItemsString ? JSON.parse(existingCartItemsString) : [];
-        console.log(existingCartItemsString)
         if (productQuantityInput > productData.product_moq) {
             console.log('error')
             Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
@@ -132,6 +134,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                     product_name: productData.product_name,
                     product_image: productData.product_image ? product_image + productData.product_image : constant.DEFAULT_IMAGE,
                     product_price: Number(productData.product_price),
+                    product_moq: Number(productData.product_moq),
                     product_selling_price: Number(productData.product_selling_price),
                     product_discount: Number(productData.product_discount),
                     quantity: Number(productQuantityInput),
@@ -140,6 +143,7 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                 let updatedCartItems = [...existingCartItems, product];
 
                 localStorage.setItem('CART_SESSION', JSON.stringify(updatedCartItems))
+                setcartCount(cartCount+1)
                 Toasts.success('Product Added Successfully')
             }
         }

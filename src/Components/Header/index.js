@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { ApiService } from '../../Components/Services/apiservices';
 import constant from '../../Components/Services/constant';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
+import DataContext from '../Context';
 
 const Header = () => {
     const [settingData, setsettingData] = useState();
@@ -11,11 +12,13 @@ const Header = () => {
     const [loading, setloading] = useState('');
     const location = useLocation();
     const [cartsesssion, setcartsesssion] = useState('')
+    const{cartCount,setcartCount}=useContext(DataContext)
+
 
     const cartsessiondata = localStorage.getItem('CART_SESSION')
     // console.log(cartsessiondata)
     const existingCartItems = cartsessiondata ? JSON.parse(cartsessiondata) : []
-    console.log(existingCartItems)
+    // console.log(existingCartItems)
 
 
     const [menudata, setmenudata] = useState([]);
@@ -90,9 +93,10 @@ const Header = () => {
 
                                         {/* <li><a className="getstarted scrollto" href="https://paradise.nikkblink.site/csadmin/">Admin Panel</a></li> */}
                                         {
-                                            existingCartItems.length > 0 ? <>
+                                            cartCount > 0 ? <>
                                                 <li>
-                                                    <a class="cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">{existingCartItems.length}</span></a>
+                                                    <a class="cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">{cartCount}</span></a>
+                                                    {/* <a class="cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">{existingCartItems.length}</span></a> */}
                                                 </li>
 
                                             </> : <>
@@ -102,7 +106,18 @@ const Header = () => {
                                             </>
                                         }
                                     </ul>
+                                    <div className='d-flex justify-content-center align-items-center g-3 '>
+                                    {
+                                            cartCount > 0 ? <>
+                                                    <a class="cart-toggle mobile-cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">{cartCount}</span></a>
+                                                    {/* <a class="cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">{existingCartItems.length}</span></a> */}
+
+                                            </> : <>
+                                                    <a class="cart-toggle mobile-cart-toggle" href="/cart" title="cart"><i class="bx bx-cart"></i><span class="cart-count">0</span></a>
+                                            </>
+                                        }
                                     <i className="bi bi-list mobile-nav-toggle" data-bs-toggle="modal" data-bs-target="#leftModal"></i>
+                                    </div>
                                 </nav>
                             </>
                     }
@@ -132,7 +147,7 @@ const Header = () => {
 
                             </ul>
                         </div>
-                        <a className="modal-footer" href="https://paradise.nikkblink.site/csadmin/">
+                        <a className="modal-footer fw-5" href="https://paradise.nikkblink.site/csadmin/">
                             Admin Panel
 
                         </a>
