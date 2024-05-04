@@ -71,7 +71,7 @@ const Featuredproduct = () => {
                                 }}
                                 breakpoints={{
                                     0: {
-                                        slidesPerView: 2,
+                                        slidesPerView: 1.5,
                                     }, 540: {
                                         slidesPerView: 2,
                                     },
@@ -120,13 +120,13 @@ const Featuredproduct = () => {
                                                 // spaceBetween={50}
                                                 // slidesPerView={3}
                                                 modules={[Autoplay, Pagination, Navigation]}
-                                                autoplay={{
-                                                    delay: 2000,
-                                                    disableOnInteraction: false,
-                                                }}
+                                                // autoplay={{
+                                                //     delay: 2000,
+                                                //     disableOnInteraction: false,
+                                                // }}
                                                 breakpoints={{
                                                     0: {
-                                                        slidesPerView: 2,
+                                                        slidesPerView: 1.5,
                                                     }, 540: {
                                                         slidesPerView: 2,
                                                     },

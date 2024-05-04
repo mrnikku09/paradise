@@ -84,7 +84,7 @@ const Homecategorywiseproduct = () => {
                                                         }}
                                                         breakpoints={{
                                                             0: {
-                                                        slidesPerView: 2,
+                                                        slidesPerView: 1.5,
                                                     }, 540: {
                                                         slidesPerView: 2,
                                                     },
@@ -124,7 +124,7 @@ const Homecategorywiseproduct = () => {
                                                                     }}
                                                                     breakpoints={{
                                                                         0: {
-                                                        slidesPerView: 2,
+                                                        slidesPerView: 1.5,
                                                     }, 540: {
                                                         slidesPerView: 2,
                                                     },
@@ -234,7 +234,7 @@ const Homecategorywiseproduct = () => {
                                             }}
                                             breakpoints={{
                                                 0: {
-                                                    slidesPerView: 2,
+                                                    slidesPerView: 1.5,
                                                 }, 540: {
                                                     slidesPerView: 2,
                                                 },
