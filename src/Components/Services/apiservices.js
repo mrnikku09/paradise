@@ -32,7 +32,8 @@ client.interceptors.response.use(
   // }
 );
 function getauthtoken(){
-  let token = sessionStorage.getItem('USER_TOKEN');
+  let tokenn = localStorage.getItem('USER_SESSION');
+  let token=JSON.parse(tokenn)
   let Authtoken = '';
   if(token !=null && token !='' && token !=undefined){
       Authtoken = token;

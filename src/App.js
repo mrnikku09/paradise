@@ -11,8 +11,12 @@ import Product from './container/product';
 import ProductDetails from './container/productDetails';
 import Cart from './Components/Cart';
 import { ToastContainer } from 'react-toastify';
+import Account from './container/user/Account';
+import { useContext } from 'react';
+import DataContext from './Components/Context';
 
 function App() {
+  const { existingUserSession } = useContext(DataContext)
   return (
     <div className="App">
       <ToastContainer />
@@ -27,6 +31,16 @@ function App() {
           <Route exact path='/contact-us' activeClassName="active" element={<Contactus />} />
           <Route exact path='/:slug' activeClassName="active" element={<Page />} />
           <Route path='*' activeClassName="active" element={<Error />} />
+
+
+          {/* User */}
+          {
+            existingUserSession != '' ?
+              <Route exact path='/account' activeClassName="active" element={<Account />} />
+              :
+              <Route exact path='/error' activeClassName="active" element={<Error />} />
+          }
+
         </Routes>
       </Router>
     </div>

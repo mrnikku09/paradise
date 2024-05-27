@@ -5,7 +5,7 @@ import { ApiService } from '../../Components/Services/apiservices';
 import constant from '../../Components/Services/constant';
 import { Helmet } from 'react-helmet';
 import Toasts from '../../Components/Extension/Toast/Toasts';
-import {  ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Contactus = () => {
 
@@ -59,22 +59,21 @@ const Contactus = () => {
                 myElements[i].style.border = "";
             }
         }
-        if(counter != 0)
-        {
+        if (counter != 0) {
             Toasts.error('Please Fill The Required Fields')
-            return false;   
+            return false;
         }
 
         const validateEmail = (email) => {
             const re = /\S+@\S+\.\S+/;
             return re.test(email);
-          };
+        };
 
-          if (!validateEmail(contactDetails.contact_email)) {
+        if (!validateEmail(contactDetails.contact_email)) {
             Toasts.error('Email is Invalid')
             return false
-          } 
-          
+        }
+
         const dataString = {
             'contact_name': contactDetails.contact_name,
             'contact_email': contactDetails.contact_email,
@@ -90,7 +89,7 @@ const Contactus = () => {
                 }, 4000);
             } else {
                 Toasts.error(res.message);
-                
+
             }
         })
     }

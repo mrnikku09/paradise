@@ -1577,6 +1577,9 @@ text-align: center;
 .mobile-cart-toggle{
   display: none !important;
 }
+.mobile-user-toggle{
+  display: none !important;
+}
 @media(max-width:999px)
 {
   .mobile-cart-toggle{
@@ -1584,10 +1587,15 @@ text-align: center;
     margin-top: 10px;
     padding: 10px 8px !important;
   }
+ 
   
   .mobile-cart-toggle .cart-count{
     right: 30px !important;
     margin-top: 10px !important;
+  }
+
+  .mobile-user-toggle{
+    display: block !important;
   }
 
 }
@@ -2541,4 +2549,48 @@ font-weight: 600;
 .web-search-result-child-close{
 text-align: right;
 padding:10px 20px;
+}
+
+.vertical-line {
+  border-left: 1px solid black;
+  height: 100%; /* Adjust height as needed */
+  margin-left: 20px; /* Adjust position as needed */
+}
+
+/********************************* Login modal *********************************/
+.login_modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.login_modal .modal-dialog .modal-content .modal-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_modal .modal-dialog .modal-content .modal-body .login_content{
+  width: 100%;
+  height: auto;
+}
+.login_modal .modal-dialog .modal-content .modal-body .login_content .login_img {
+  width: 100%;
+  text-align: center;
+  line-height: 25px;
+}
+.login_modal .modal-dialog .modal-content .modal-body .login_content .login_img img{
+  
+  height: 105px;
+}
+.login_modal .modal-dialog .modal-content .modal-body .login_content .login_form{
+    width: 80%;
+}
+.login_modal .modal-dialog .modal-content .modal-body .login_content .login_form label{
+  font-weight: 500;
+}
+.login_modal .modal-dialog .modal-content .modal-body .login_content .login-submit button{
+  width: 100%;
+  height: 50px;
 }

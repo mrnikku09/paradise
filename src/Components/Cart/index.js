@@ -11,20 +11,21 @@ import { RiDeleteBack2Fill, RiDeleteBin2Fill, RiDeleteBin7Fill, RiDeleteBin7Line
 import { ApiService } from '../Services/apiservices'
 import { Spinner } from 'react-bootstrap'
 import DataContext from '../Context'
+import LoginModal from '../Modals/login_model'
 
 const Cart = () => {
 
     const [loading, setloading] = useState(false)
 
     const { cartCount, setcartCount } = useContext(DataContext)
-    const { cartsummary,setcartsummary,rerenderdata } = useContext(DataContext)
+    const { cartsummary, setcartsummary, rerenderdata } = useContext(DataContext)
 
     // console.log(cartCount)
     // const navigate = useNavigate();
     let cartsessiondata = localStorage.getItem('CART_SESSION')
     let existingCartItems = cartsessiondata ? JSON.parse(cartsessiondata) : []
 
-    
+
 
     const [productQuantityInput, setproductQuantityInput] = useState(1)
     const productQuantityAdd = (productData) => {
@@ -49,7 +50,7 @@ const Cart = () => {
             localStorage.setItem("CART_SESSION", JSON.stringify(existingCartItems));
 
             // navigate('/cart')
-        rerenderdata();
+            rerenderdata();
 
             setTimeout(() => {
                 setloading(false)
@@ -82,7 +83,7 @@ const Cart = () => {
             localStorage.setItem("CART_SESSION", JSON.stringify(existingCartItems));
             setcartCount(cartCount - 1)
             // navigate('/cart')
-        rerenderdata();
+            rerenderdata();
 
             setTimeout(() => {
                 setloading(false)
@@ -94,7 +95,7 @@ const Cart = () => {
             existingCartItems[existingCartItemsupdate].quantity -= 1
             localStorage.setItem("CART_SESSION", JSON.stringify(existingCartItems));
             // navigate('/cart')
-        rerenderdata();
+            rerenderdata();
 
             setTimeout(() => {
                 setloading(false)
@@ -121,8 +122,8 @@ const Cart = () => {
         localStorage.setItem('CART_SESSION', JSON.stringify(existingCartItems))
         // navigate('/cart')
         setcartCount(cartCount - 1)
-        
-        
+
+
         rerenderdata();
         setTimeout(() => {
             setloading(false)
@@ -132,8 +133,22 @@ const Cart = () => {
 
 
     }
+    const { existingUserSession } = useContext(DataContext)
 
 
+    const [showloginmodal, setshowloginmodal] = useState(false);
+    const usersession = () => {
+        if (existingUserSession != '') {
+            
+        } else {
+            setshowloginmodal(!showloginmodal);
+
+        }
+    }
+    const hideloginmodal = () => {
+        setshowloginmodal(!showloginmodal);
+        console.log(showloginmodal)
+    }
     // navigate('/home');
 
     return (
@@ -215,7 +230,7 @@ const Cart = () => {
                                                         </div>
                                                     </div>
                                                 </div> */}
-                                                <div class="panel p-4 mb-3" style={{border: "1px solid rgb(238, 238, 238);"}}>
+                                                <div class="panel p-4 mb-3" style={{ border: "1px solid rgb(238, 238, 238);" }}>
                                                     <div class="panel-header">Price Details
                                                     </div>
                                                     <div class="panel-body">
@@ -226,9 +241,9 @@ const Cart = () => {
                                                         <div class="cardlist"><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-discover"></i><i class="fab fa-cc-visa"></i>
                                                         </div>
                                                     </div>
-                                                </div><a href="javascript:void(0)" class="btn btn-primary btn-block btn-large w-100">Proceed to Checkout</a>
+                                                </div><a href="javascript:void(0)" onClick={usersession} class="btn btn-primary btn-block btn-large w-100">Proceed to Checkout</a>
 
-                                                
+
                                             </div>
                                         </div>
                                     </> : <>
@@ -253,6 +268,9 @@ const Cart = () => {
 
                 </section>
             </main>
+            {
+                showloginmodal && <LoginModal showloginmodal={showloginmodal} hideloginmodal={hideloginmodal} />
+            }
             <Footer />
         </>
     )
