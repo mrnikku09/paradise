@@ -14,6 +14,8 @@ import { ToastContainer } from 'react-toastify';
 import Account from './container/user/Account';
 import { useContext } from 'react';
 import DataContext from './Components/Context';
+import Address from './container/user/Address';
+import Order from './container/user/Order';
 
 function App() {
   const { existingUserSession } = useContext(DataContext)
@@ -36,7 +38,11 @@ function App() {
           {/* User */}
           {
             existingUserSession != '' ?
+            <>
               <Route exact path='/account' activeClassName="active" element={<Account />} />
+              <Route exact path='/address' activeClassName="active" element={<Address />} />
+              <Route exact path='/order' activeClassName="active" element={<Order />} />
+            </>
               :
               <Route exact path='/error' activeClassName="active" element={<Error />} />
           }

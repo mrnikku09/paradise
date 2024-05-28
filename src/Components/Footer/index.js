@@ -46,11 +46,11 @@ const Footer = () => {
                             <div className="col-lg-3 col-md-6 footer-contact">
                                 <img className='' src={settingData != null ? setting_image_path + settingData.logo : constant.DEFAULT_IMAGE} alt="" />
                                 <p>
-                                    A108 Adam Street <br />
-                                    New York, NY 535022<br />
-                                    United States <br /><br />
-                                    <strong>Phone:</strong>&nbsp;<a href={"tel:" + settingData?.admin_mobile}>9999999999</a> <br />
-                                    <strong>Email:</strong>&nbsp;<a href={"mailto:" + settingData?.site_address}>info@paradise.com</a><br />
+                                    Jagatpura <br />
+                                    Jaipur, Raj 302017<br />
+                                    India <br /><br />
+                                    <strong>Phone:</strong>&nbsp;<a href={"tel:" + settingData?.admin_mobile}>{settingData?.admin_mobile}</a> <br />
+                                    <strong>Email:</strong>&nbsp;<a href={"mailto:" + settingData?.site_address}>{settingData?.site_address}</a><br />
                                 </p>
                             </div>
 

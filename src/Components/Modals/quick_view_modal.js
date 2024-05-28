@@ -104,8 +104,11 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
         let existingCartItemsString = localStorage.getItem('CART_SESSION');
         let existingCartItems = existingCartItemsString ? JSON.parse(existingCartItemsString) : [];
         if (productQuantityInput > productData.product_moq) {
-            console.log('error')
-            Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
+            if (productData.product_moq == 0) {
+                Toasts.error(`Out Of Stock`);
+            } else {
+                Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
+            }
         } else {
             // localStorage.setItem('CART_SESSION',JSON.stringify(productData));
             // console.log(productData)
@@ -191,7 +194,9 @@ const QuickViewModal = ({ showmodal, handleClose, quickModalProductData }) => {
                                                         <span className="product-sku">{productData?.product_sku ? productData?.product_sku : ''}</span>
                                                     </div>
                                                     <div className="stock-text">Availability:
-                                                        <span className="instock">In Stock</span>
+                                                    {productData?.product_moq ? 
+                                                        <span className="instock">In Stock</span> : 
+                                                        <span className="text-danger">Out Of Stock</span>}
                                                     </div>
                                                     
                                                     <div className='d-flex'>

@@ -13,6 +13,7 @@ import Toasts from '../../Components/Extension/Toast/Toasts';
 
 import { ToastContainer } from 'react-toastify'
 import DataContext from '../../Components/Context'
+import { Helmet } from 'react-helmet'
 
 const ProductDetails = () => {
 
@@ -25,7 +26,7 @@ const ProductDetails = () => {
     const [showQuick, setShowQuick] = useState(false);
     const [quickModalProductData, setquickModalProductData] = useState(null);
     const [visitor_count, setvisitor_count] = useState(0)
-    const{cartCount,setcartCount}=useContext(DataContext)
+    const { cartCount, setcartCount } = useContext(DataContext)
 
     const navigate = useNavigate()
 
@@ -113,7 +114,11 @@ const ProductDetails = () => {
         // console.log(existingCartItemsString)
         if (productQuantityInput > productData.product_moq) {
             console.log('error')
-            Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
+            if (productData.product_moq == 0) {
+                Toasts.error(`Out Of Stock`);
+            } else {
+                Toasts.error(`You Can Add Only ${productData.product_moq} Items`);
+            }
         } else {
             // localStorage.setItem('CART_SESSION',JSON.stringify(productData));
             // console.log(productData)
@@ -151,7 +156,7 @@ const ProductDetails = () => {
                 let updatedCartItems = [...existingCartItems, product];
 
                 localStorage.setItem('CART_SESSION', JSON.stringify(updatedCartItems))
-                setcartCount(cartCount+1)
+                setcartCount(cartCount + 1)
 
                 Toasts.success('Product Added Successfully')
             }
@@ -162,6 +167,20 @@ const ProductDetails = () => {
     }
     return (
         <>
+            <Helmet>
+                <title>{productData.product_meta_title}</title>
+                <meta name="description" itemprop="description" content={productData.product_meta_desc != null ? productData.product_meta_desc : "Paradise"} />
+                {productData.product_meta_keyword != null ? <meta name="keywords" content={productData.product_meta_keyword} /> : ""}
+                <link rel="canonical" href={window.location.href} />
+                <meta property="og:title" content={productData.product_meta_title} />
+                <meta name="twitter:url" content={window.location.href} />
+                <meta property="og:image" content={constant.FRONT_URL + 'img/logo.png'} />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:description" content={productData.product_meta_desc != null ? productData.product_meta_desc : "Paradise"} />
+                <meta name="twitter:title" content={productData.product_meta_title} />
+                <meta name="twitter:description" content={productData.product_meta_desc != null ? productData.product_meta_desc : "Paradise"} />
+                <meta property="twitter:image" content={constant.FRONT_URL + 'img/logo.png'} />
+            </Helmet>
             <Header />
             <main id="main">
                 {/* <!-- ======= Portfolio Details Section ======= --> */}
@@ -237,7 +256,10 @@ const ProductDetails = () => {
                                                             <span className="product-sku">{productData?.product_sku ? productData?.product_sku : ''}</span>
                                                         </div>
                                                         <div className="stock-text">Availability:
-                                                            <span className="instock">In Stock</span>
+                                                        {productData?.product_moq ? 
+                                                        <span className="instock">In Stock</span> : 
+                                                        <span className="text-danger">Out Of Stock</span>}
+                                                            
                                                         </div>
 
                                                         <div className='d-flex'>
@@ -398,7 +420,7 @@ const ProductDetails = () => {
                                                         1024: {
                                                             slidesPerView: 4.5,
                                                         },
-                                                        
+
                                                     }}
 
                                                 >

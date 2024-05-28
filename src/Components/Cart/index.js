@@ -139,7 +139,7 @@ const Cart = () => {
     const [showloginmodal, setshowloginmodal] = useState(false);
     const usersession = () => {
         if (existingUserSession != '') {
-            
+            Toasts.success('Thanks Your Patience Work In Progress 😊')
         } else {
             setshowloginmodal(!showloginmodal);
 

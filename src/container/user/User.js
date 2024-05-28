@@ -21,17 +21,20 @@ const User = () => {
         <>
             <div className="col-lg-3">
                 <div className="container">
+                {/* <div className="row g-3">
+                    Home
+                </div> */}
                     <div className="row g-3">
-                        <div className="col-lg-12">
-                            <a href="javascript:void(0)"><h4>Account</h4></a>
+                        <div className="col-lg-12 col-4">
+                            <a href="/account"><h4>Account</h4></a>
                         </div>
-                        <div className="col-lg-12">
-                            <a href="javascript:void(0)"><h4> Order</h4></a>
+                        <div className="col-lg-12 col-4">
+                            <a href="/address"><h4> Address</h4></a>
                         </div>
-                        <div className="col-lg-12">
-                            <a href="javascript:void(0)"><h4> Address</h4></a>
+                        <div className="col-lg-12 col-4">
+                            <a href="/order"><h4> Order</h4></a>
                         </div>
-                        <div className="col-lg-12 mt-5">
+                        <div className="col-lg-12 col-4 mt-5">
                             <span className='text-black' style={{ cursor: 'pointer' }} onClick={logout}> <h6>Logout</h6> <hr style={{ width: '70px' }} /></span>
                         </div>
                     </div>

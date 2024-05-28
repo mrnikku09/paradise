@@ -74,7 +74,7 @@ const Header = () => {
         }))
 
         // console.log(searchData)
-        if (value.length >= 2) {
+        if (value.length >0) {
             setsearchhide(true)
 
             const dataString = {

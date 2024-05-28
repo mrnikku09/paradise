@@ -71,16 +71,16 @@ const RegisterModel = ({ showregister, hideregistermodal }) => {
             const re = /\S+@\S+\.\S+/;
             return re.test(email);
         };
+        if (!isValidNumber(userdetails.user_mobile)) {
+            Toasts.error('Please enter a valid Mobile Number')
+            return false;
+        }
 
         if (!validateEmail(userdetails.user_email)) {
             Toasts.error('Email is Invalid')
             return false
         }
 
-        if (!isValidNumber(userdetails.user_mobile)) {
-            Toasts.error('Please enter a valid Mobile Number')
-            return false;
-        }
         const datastring = {
             'user_fname': userdetails.user_fname,
             'user_mobile': userdetails.user_mobile,

@@ -29,7 +29,7 @@ const Account = () => {
     }
 
     const [showregister, setshowregister] = useState(false)
-    const RegisterEditModel = () => {
+    const registerEditModel = () => {
         setshowregister(!showregister);
 
     }
@@ -42,6 +42,18 @@ const Account = () => {
             <main id="main">
 
                 <Header />
+                <div className="subheader">
+                        <div className="subheader-overlay"></div>
+                        <div className="subheader-content">
+                            <h1>Account</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol className="breadcrumb">
+                                    <li className="breadcrumb-item"><a href="/">Home</a></li>
+                                    <li className="breadcrumb-item" aria-current="page">Account</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
                 <section className='sec-pad'>
                     <div className="container">
                         <div className="row g-3">
@@ -106,23 +118,23 @@ const Account = () => {
                                                 </div>
 
                                             </div>
-                                            {/* <div className="container mt-5">
+                                            <div className="container mt-5">
                                                 <div className="row">
                                                     <div className="col-lg-12 text-center">
-                                                        <a href='javascript:void(0)' onClick={RegisterEditModel}><h6>Edit Details</h6></a>
+                                                        <a href='javascript:void(0)' onClick={registerEditModel}><h6>Edit Details</h6></a>
                                                     </div>
                                                 </div>
-                                            </div> */}
+                                            </div>
                                         </>
                                 }
                             </div>
                         </div>
                     </div>
                 </section>
-                {/* {
+                 {
                     showregister && <RegisterEditModel showregister={showregister} hideregistermodal={hideregistermodal} userData={userData} />
 
-                } */}
+                } 
                 <Footer />
             </main>
         </>
